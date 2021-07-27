@@ -1,0 +1,66 @@
+PODS:
+  - Alamofire (4.9.1)
+  - Cache (6.0.0)
+  - CHTCollectionViewWaterfallLayout/Swift (0.9.8)
+  - CollectionViewWaterfallLayout (0.5.0)
+  - DZNEmptyDataSet (1.8.1)
+  - Imaginary (5.0.0):
+    - Cache (~> 6.0.0)
+  - JGProgressHUD (2.2)
+  - Lightbox (2.5.0):
+    - Imaginary (~> 5.0.0)
+  - Loaf (0.7.0)
+  - SDWebImage (5.11.1):
+    - SDWebImage/Core (= 5.11.1)
+  - SDWebImage/Core (5.11.1)
+  - SVProgressHUD (2.2.5)
+  - SwiftKeychainWrapper (3.0.1)
+  - UnsplasherSDK (1.2.1):
+    - Alamofire (~> 4.6)
+    - SwiftKeychainWrapper (~> 3.0.1)
+
+DEPENDENCIES:
+  - CHTCollectionViewWaterfallLayout/Swift
+  - CollectionViewWaterfallLayout
+  - DZNEmptyDataSet
+  - JGProgressHUD
+  - Lightbox
+  - Loaf
+  - SDWebImage
+  - SVProgressHUD
+  - UnsplasherSDK
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - Cache
+    - CHTCollectionViewWaterfallLayout
+    - CollectionViewWaterfallLayout
+    - DZNEmptyDataSet
+    - Imaginary
+    - JGProgressHUD
+    - Lightbox
+    - Loaf
+    - SDWebImage
+    - SVProgressHUD
+    - SwiftKeychainWrapper
+    - UnsplasherSDK
+
+SPEC CHECKSUMS:
+  Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
+  Cache: 4ca7e00363fca5455f26534e5607634c820ffc2d
+  CHTCollectionViewWaterfallLayout: 5f241d2480ab4939aa0d1ad4981de9eef1fbe60d
+  CollectionViewWaterfallLayout: 4399ba01be265fff4da1ed1d607130fe009780e4
+  DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
+  Imaginary: cf5e3a7dd6ab1dcbd47ba8ce5edf2307c4e99eb3
+  JGProgressHUD: d83d7a981b85d11205e19ff8ad5bb9c40571c847
+  Lightbox: cc3d5124f024fa8197fd23f913160db1c61a1852
+  Loaf: d69937cd00649f3fa260beb8b7aef0a1feb861ef
+  SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
+  SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
+  SwiftKeychainWrapper: 38952a3636320ae61bad3513cadd870929de7a4a
+  UnsplasherSDK: 3bcebce1019a050aee5bac7a12748d75704d6235
+
+PODFILE CHECKSUM: a765e7768ba6d4a9fa5b216244b43b1655d6cc75
+
+COCOAPODS: 1.10.1
