@@ -38,7 +38,7 @@ class FavoriteViewController: UIViewController, UICollectionViewDelegate, UIColl
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        //getFavoriteItems()
+        getFavoriteItems()
     }
 
     
@@ -47,9 +47,9 @@ class FavoriteViewController: UIViewController, UICollectionViewDelegate, UIColl
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
         managedContext = appDelegate.persistentContainer.viewContext
         
-        let getRequest = NSFetchRequest<NSManagedObject>(entityName: "Splash")
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Splash")
         do {
-            let unsplash = try managedContext?.fetch(getRequest)
+            let unsplash = try managedContext?.fetch(fetchRequest)
             for data in unsplash! {
                 favoriteItems.append(data)
                 print(unsplash?.count ?? 0)
@@ -99,6 +99,7 @@ class FavoriteViewController: UIViewController, UICollectionViewDelegate, UIColl
     
     //MARK: -CollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        print(favoriteItems.count)
         return favoriteItems.count
     }
     

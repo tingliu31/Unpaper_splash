@@ -12,6 +12,16 @@ import Loaf
 import JGProgressHUD
 import CoreData
 
+
+//class Splash: NSManagedObject {
+//
+//    @NSManaged var imageURL: String?
+//    @NSManaged var width: Int
+//    @NSManaged var height: Int
+//
+//}
+
+
 class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UIScrollViewDelegate {
 
     //DownloadButton
@@ -101,8 +111,8 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
         setupPhotoDetail()
 
         // 隱藏TabBar
-        self.tabBarController?.hidesBottomBarWhenPushed = true
-        self.tabBarController?.tabBar.isHidden = true
+        self.tabBarController?.hidesBottomBarWhenPushed = false
+        self.tabBarController?.tabBar.isHidden = false
         // 隱藏NavigationBar
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
@@ -267,6 +277,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
         do {
             try managedContext.save()
             print("Data Saved Successfully!")
+            print(imageURL)
             Loaf("Your image successfully added to your favorite!", state: .success, location: .bottom, presentingDirection: .vertical, dismissingDirection: .vertical, sender: self).show()
         }
         catch let error as NSError {

@@ -12,7 +12,7 @@ import SDWebImage
 class FavoriteCollectionViewCell: UICollectionViewCell {
     
     static let identifier = "favoriteCell"
-    var favoriteImageView: UIImageView!
+    @IBOutlet weak var imageView: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -20,9 +20,11 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
     
     func configureCell(favorite: NSManagedObject) {
         guard let url = URL(string: favorite.value(forKey: "imageURL") as! String) else { return }
-        favoriteImageView.layer.cornerRadius = 4.0
-        favoriteImageView.layer.masksToBounds = true
-        favoriteImageView.sd_setImage(with: url, completed: nil)
+        print(url)
+        imageView.sd_setImage(with: url, completed: nil)
+        imageView.layer.cornerRadius = 4.0
+        imageView.layer.masksToBounds = true
+        
     }
     
 }

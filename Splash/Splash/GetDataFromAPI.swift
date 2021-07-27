@@ -22,8 +22,6 @@ struct Source {
     }
     
     
-    
-    
     private func compareModelCountToPerPage(_ oldModels: Int,
                                             _ perPage: Int) -> Int {
         var page: Int = oldModels/perPage
