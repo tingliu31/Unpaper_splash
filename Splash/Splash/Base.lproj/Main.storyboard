@@ -78,11 +78,16 @@
                                             <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1rC-dC-dyt">
-                                                    <rect key="frame" x="-56" y="0.0" width="240" height="128"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1rC-dC-dyt">
+                                                    <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
                                                 </imageView>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="1rC-dC-dyt" firstAttribute="top" secondItem="OIY-nT-NKH" secondAttribute="top" id="CIH-HK-7hw"/>
+                                                <constraint firstItem="1rC-dC-dyt" firstAttribute="leading" secondItem="OIY-nT-NKH" secondAttribute="leading" id="YWC-y1-IZa"/>
+                                                <constraint firstAttribute="trailing" secondItem="1rC-dC-dyt" secondAttribute="trailing" id="fXh-dh-GE1"/>
+                                                <constraint firstAttribute="bottom" secondItem="1rC-dC-dyt" secondAttribute="bottom" id="qXm-Os-CAV"/>
+                                            </constraints>
                                         </collectionViewCellContentView>
                                         <connections>
                                             <outlet property="imageView" destination="1rC-dC-dyt" id="ArM-pO-xJW"/>

@@ -23,10 +23,6 @@ class FavoriteViewController: UIViewController, UICollectionViewDelegate, UIColl
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        
-        self.tabBarController?.hidesBottomBarWhenPushed = false
-        self.tabBarController?.tabBar.isHidden = false
         
         favCollectionView.delegate = self
         favCollectionView.dataSource = self
@@ -50,7 +46,6 @@ class FavoriteViewController: UIViewController, UICollectionViewDelegate, UIColl
             let unsplash = try managedContext?.fetch(fetchRequest)
             for data in unsplash! {
                 favoriteItems.append(data)
-                print(unsplash?.count ?? 0)
                 DispatchQueue.main.async {
                     self.hud?.dismiss(animated: true)
                     self.favCollectionView.reloadData()
@@ -65,10 +60,10 @@ class FavoriteViewController: UIViewController, UICollectionViewDelegate, UIColl
     func setupWaterfallLayout() {
         let waterfallLayout = CollectionViewWaterfallLayout()
         waterfallLayout.columnCount = 2
-        waterfallLayout.headerHeight = 50
+        waterfallLayout.headerHeight = 20
         waterfallLayout.footerHeight = 20
-        waterfallLayout.minimumColumnSpacing = 5
-        waterfallLayout.minimumInteritemSpacing = 5
+        waterfallLayout.minimumColumnSpacing = 10
+        waterfallLayout.minimumInteritemSpacing = 10
         favCollectionView.collectionViewLayout = waterfallLayout
     }
     
@@ -97,7 +92,6 @@ class FavoriteViewController: UIViewController, UICollectionViewDelegate, UIColl
     
     //MARK: -CollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print(favoriteItems.count)
         return favoriteItems.count
     }
     
@@ -127,7 +121,7 @@ extension FavoriteViewController: CollectionViewWaterfallLayoutDelegate {
         let favoriteWidth = favorite.value(forKey: "width") as! Int
         let favoriteHeight = favorite.value(forKey: "height") as! Int
         cellSizes.append(CGSize(width: favoriteWidth, height: favoriteHeight))
-        //print(cellSizes)
+        print(cellSizes)
         return cellSizes[indexPath.item]
     }
     

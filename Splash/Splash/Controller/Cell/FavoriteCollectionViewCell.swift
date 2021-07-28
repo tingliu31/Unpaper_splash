@@ -22,9 +22,9 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
     func configureCell(favorite: NSManagedObject) {
         guard let url = URL(string: favorite.value(forKey: "imageURL") as! String) else { return }
         print(url)
-        imageView.sd_setImage(with: url, completed: nil)
         imageView.layer.cornerRadius = 4.0
         imageView.layer.masksToBounds = true
+        imageView.sd_setImage(with: url, completed: nil)
     }
     
     
