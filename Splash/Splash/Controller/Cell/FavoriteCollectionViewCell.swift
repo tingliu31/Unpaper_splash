@@ -16,6 +16,7 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        print()
     }
     
     func configureCell(favorite: NSManagedObject) {
@@ -24,7 +25,7 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
         imageView.sd_setImage(with: url, completed: nil)
         imageView.layer.cornerRadius = 4.0
         imageView.layer.masksToBounds = true
-        
     }
+    
     
 }

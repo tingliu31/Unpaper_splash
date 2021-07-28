@@ -34,10 +34,10 @@ struct PhotoData: Codable {
     }
     
     struct Links: Codable {
-        let self_: URL? //沒辦法顯示
-        let html: URL? //照片在網站裡的頁面
-        let download: URL? //可下載網址
-        let download_location: URL? //沒辦法顯示
+        let self_: String? //沒辦法顯示
+        let html: String? //照片在網站裡的頁面
+        let download: String? //可下載網址
+        let download_location: String? //沒辦法顯示
     }
     
     struct Categories: Codable {
@@ -53,7 +53,7 @@ struct PhotoData: Codable {
         let first_name: String?
         let last_name: String?
         let twitter_username: String?
-        let portfolio_url: URL? //個人網站 EX: Instagram
+        let portfolio_url: String? //個人網站 EX: Instagram
         let bio: String?
         let location: String?
         let instagram_username: String?  //-------------
@@ -65,21 +65,21 @@ struct PhotoData: Codable {
         let social: Social? //-------------
         
         struct Links: Codable {
-            let self_: URL? //不能顯示
-            let html: URL? //個人Unsplash網站----------
-            let photos: URL?  //不能顯示
-            let likes: URL?  //不能顯示
+            let self_: String? //不能顯示
+            let html: String? //個人Unsplash網站----------
+            let photos: String? //不能顯示
+            let likes: String?  //不能顯示
         }
         
         struct Profile_image: Codable { //個人大頭照
-            let small: URL?
-            let medium: URL? //大小比較剛好-------------
-            let large: URL?
+            let small: String?
+            let medium: String? //大小比較剛好-------------
+            let large: String?
         }
         
         struct Social: Codable {
             let instagram_username: String?  //-------------
-            let portfolio_url: URL?  //-------------
+            let portfolio_url: String?  //-------------
             let twitter_username: String?
         }
     }

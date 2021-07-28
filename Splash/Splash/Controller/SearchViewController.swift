@@ -74,7 +74,7 @@ class SearchViewController: UIViewController, UICollectionViewDelegate, UICollec
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchCollectionViewCell.identifier, for: indexPath) as? SearchCollectionViewCell else {
             fatalError()
         }
-        let imageURL = (searchResults[indexPath.row].urls.regular)
+        let imageURL = (searchResults[indexPath.row].urls?.regular)
         let imageURLString = "\(String(describing: imageURL))"
         cell.configure(with: imageURLString) //下載圖
         print(imageURLString)

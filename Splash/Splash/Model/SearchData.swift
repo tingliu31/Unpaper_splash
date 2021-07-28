@@ -30,11 +30,11 @@ struct Result : Codable {
     let likes : Int?
     let links : Link?
     let promotedAt : String?
-    let sponsorship : String?
+    //let sponsorship : String?
     //let tags : [Tag]?
     let updatedAt : String?
-    let urls : Url
-    let user : User
+    let urls : Url?
+    let user : User?
     let width : Int?
 
 }

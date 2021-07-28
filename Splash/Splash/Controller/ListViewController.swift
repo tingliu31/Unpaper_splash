@@ -217,7 +217,6 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
                     print("photoListData count: \(self.photoListData.count)")
                     DispatchQueue.main.async {
                         self.tableView.reloadData()
-                        //self.loading()
                         self.hud?.dismiss(animated: true)
                     }
                 } else {
@@ -240,17 +239,12 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
             let task = URLSession.shared.dataTask(with: listURLString) { (data, response, error) in
                 if let photoData = data, let dataList = try? JSONDecoder().decode([PhotoData].self, from: photoData) {
                     print("Refresh jsonData successful!!!")
-                    
-                    self.photoListData.removeAll()
-                    for data in dataList {
-                        self.photoListData.append(data)
-                    }
-                    print("photoListData count: \(self.photoListData.count)")
+
                     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
                         
+                        self.photoListData = dataList
+                        print("photoListData count: \(self.photoListData.count)")
                         self.tableView.reloadData()
-                        let indexPath = IndexPath(row: 0, section: 0)
-                        self.tableView.reloadRows(at: [indexPath], with: .automatic)
                         self.hud?.dismiss(animated: true)
                     }
                 } else {

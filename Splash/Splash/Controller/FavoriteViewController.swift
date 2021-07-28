@@ -28,8 +28,6 @@ class FavoriteViewController: UIViewController, UICollectionViewDelegate, UIColl
         self.tabBarController?.hidesBottomBarWhenPushed = false
         self.tabBarController?.tabBar.isHidden = false
         
-        
-        favCollectionView.register(FavoriteCollectionViewCell.self, forCellWithReuseIdentifier: FavoriteCollectionViewCell.identifier)
         favCollectionView.delegate = self
         favCollectionView.dataSource = self
         favCollectionView.emptyDataSetSource = self

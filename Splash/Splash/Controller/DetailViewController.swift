@@ -88,6 +88,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
         alert.layer.cornerRadius = 13
         return alert
     }()
+    
     //宣告一個名為mytargetView的UIView，取得ViewController.view
     var mytargetView: UIView?
     var uiVC: UIViewController?
@@ -110,9 +111,12 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
         
         setupPhotoDetail()
 
+        //隱藏Left bar item
+        navigationItem.leftBarButtonItem = nil
+        navigationItem.hidesBackButton = true
         // 隱藏TabBar
-        self.tabBarController?.hidesBottomBarWhenPushed = false
-        self.tabBarController?.tabBar.isHidden = false
+        self.tabBarController?.hidesBottomBarWhenPushed = true
+        self.tabBarController?.tabBar.isHidden = true
         // 隱藏NavigationBar
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
@@ -158,6 +162,13 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
         saveBtn.addTarget(self, action: #selector(addToCollection), for: .touchUpInside)
     }
     
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.tabBarController?.hidesBottomBarWhenPushed = false
+        self.tabBarController?.tabBar.isHidden = false
+    }
+    
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -176,8 +187,9 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
     
     
     func setupPhotoDetail() {
-        let authorImageURL = photoDetails?.user?.profile_image?.medium
-        self.authorImageView.sd_setImage(with: authorImageURL, completed: nil)
+        if let authorImageURL = photoDetails?.user?.profile_image?.medium, let url = URL(string: authorImageURL) {
+        self.authorImageView.sd_setImage(with: url, completed: nil)
+        }
         let imageURL = photoDetails?.urls?.regular
         self.imageView.sd_setImage(with: imageURL, completed: nil)
         let authorNameUrl = photoDetails?.user?.name
@@ -192,6 +204,12 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
         
       
     }
+    
+    
+    @IBAction func closeBtn(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     
     @objc func handleDoubleTapScrollView(recognizer: UITapGestureRecognizer) {
         if scrollView.zoomScale == 1 {
@@ -290,10 +308,12 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
     
     @IBAction func sendTOAuthorWebsite(_ sender: Any) {
         
-        let authorWebsiteURL = (photoDetails?.user?.links?.html)!
-        let safari = SFSafariViewController(url: authorWebsiteURL)
-        safari.delegate = self
-        self.present(safari, animated: true, completion: nil)
+        if let authorWebsiteURL = photoDetails?.user?.links?.html, let url = URL(string: authorWebsiteURL) {
+            let safari = SFSafariViewController(url: url)
+            
+            safari.delegate = self
+            self.present(safari, animated: true, completion: nil)
+        }
     }
     
     func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
@@ -330,12 +350,13 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
         alertView.backgroundColor = .black
         alertView.layer.opacity = 0.8
         //標題
-        let titleLabel = UILabel(frame: CGRect(x: view.frame.size.width/2 - 50,
-                                               y: view.frame.size.height/2,
+        let titleLabel = UILabel(frame: CGRect(x: 0,
+                                               y: 0,
                                                width: 100, height: 80))
         //titleLabel.center.y = view.frame.size.height/2
-        titleLabel.textColor = UIColor.init(white: 1, alpha: 1)
+        titleLabel.textColor = UIColor.white
         titleLabel.font = UIFont.systemFont(ofSize: 16)
+        titleLabel.backgroundColor = .black
         //標題文字為”title”之內容
         titleLabel.text = title
         //標題文字置中對齊

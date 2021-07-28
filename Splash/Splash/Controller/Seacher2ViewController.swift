@@ -11,7 +11,7 @@ import DZNEmptyDataSet
 import JGProgressHUD
 import CHTCollectionViewWaterfallLayout
 
-class Seacher2ViewController: UIViewController, UISearchBarDelegate, UICollectionViewDataSource {
+class Seacher2ViewController: UIViewController, UISearchBarDelegate, UICollectionViewDataSource, UICollectionViewDelegate {
     
     
 
@@ -21,7 +21,7 @@ class Seacher2ViewController: UIViewController, UISearchBarDelegate, UICollectio
     var scrollView: UIScrollView!
     let searcherBar = UISearchBar()
     var hud: JGProgressHUD?
-    var index = 1
+    var page = 1
     
     
     override func viewDidLoad() {
@@ -46,6 +46,7 @@ class Seacher2ViewController: UIViewController, UISearchBarDelegate, UICollectio
         collectionView.register(Search2CollectionViewCell.self, forCellWithReuseIdentifier: Search2CollectionViewCell.identifier)
         
         collectionView.dataSource = self
+        collectionView.delegate = self
         
         view.addSubview(collectionView)
         collectionView.backgroundColor = .systemBackground
@@ -72,7 +73,7 @@ class Seacher2ViewController: UIViewController, UISearchBarDelegate, UICollectio
             searchResults = []
             collectionView?.reloadData()
             
-            getSearchData(query: text ,page: index)
+            getSearchData(query: text ,page: page)
         }
     }
 
@@ -86,9 +87,9 @@ class Seacher2ViewController: UIViewController, UISearchBarDelegate, UICollectio
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Search2CollectionViewCell.identifier, for: indexPath) as? Search2CollectionViewCell else {
             fatalError()
         }
-        let imageURL = searchResults[indexPath.row].urls.regular
+        if let imageURL = searchResults[indexPath.row].urls?.regular {
         cell.configure(with: imageURL) //下載圖
-
+        }
         return cell
     }
 
@@ -100,25 +101,15 @@ class Seacher2ViewController: UIViewController, UISearchBarDelegate, UICollectio
     }
     
     
-    
-    
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let offsetY = scrollView.contentOffset.y
-        let contentHeight = scrollView.contentSize.height
-
-        if (offsetY > contentHeight - scrollView.frame.height * 4) {
-            index += 1
-            print("page: \(index)")
-            getSearchData(query: searcherBar.text! ,page: index)
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        guard scrollView.contentSize.height > (self.collectionView?.frame.height)! else {return}
+        if scrollView.contentSize.height - (scrollView.frame.size.height + scrollView.contentOffset.y) <= -10 {
+            page += 1
+            print("page: \(page)")
+            getSearchData(query: searcherBar.text!, page: page)
         }
-//        guard scrollView.contentSize.height > self.collectionView!.frame.height else {return}
-//        if scrollView.contentSize.height - (scrollView.frame.size.height + scrollView.contentOffset.y) <= -10 {
-//            index += 1
-//            print("page: \(index)")
-//            getSearchData(query: searcherBar.text! ,page: index)
-//        }
     }
+    
     
   
     
@@ -139,16 +130,15 @@ class Seacher2ViewController: UIViewController, UISearchBarDelegate, UICollectio
                 let jsonResult = try JSONDecoder().decode(SearchData.self, from: data)
                 for urlResults in jsonResult.results {
                     self.searchResults.append(urlResults)
-                    print("jsonResult count: \(self.searchResults.count)")
                 }
                 print("Got Search jsonResult !!!")
-
+                print("jsonResult count: \(self.searchResults.count)")
                 DispatchQueue.main.async {
                     self.hud?.dismiss(animated: true)
                     self.collectionView?.reloadData()
                 }
             } catch {
-                print("Search jsonResult Loading error \(error)")
+                print("Search jsonResult Loading error: \(error)")
                 return
             }
         }
