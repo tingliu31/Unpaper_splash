@@ -13,6 +13,22 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
     
     static let identifier = "favoriteCell"
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var highLightView: UIView!
+    @IBOutlet weak var checkImage: UIImageView!
+    
+    
+    override var isHighlighted: Bool {
+        didSet {
+            highLightView.isHidden = !isHighlighted
+        }
+    }
+    
+    override var isSelected: Bool {
+        didSet {
+            highLightView.isHidden = !isSelected
+            checkImage.isHidden = !isSelected
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -267,7 +267,8 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
             let data = try? Data(contentsOf: url)
             let savedImage = UIImage(data: data!)
             UIImageWriteToSavedPhotosAlbum(savedImage!, nil, nil, nil)
-            Loaf("Image successfully saved to your photos!", state: .success, location: .bottom, presentingDirection: .vertical, dismissingDirection: .vertical, sender: self).show()
+            //Loaf("Image successfully saved to your photos!", state: .success, location: .bottom, presentingDirection: .vertical, dismissingDirection: .vertical, sender: self).show()
+            self.showAlert_(title: "Save", message: "", timeToDissapear: 2, on: self)
         }
     }
     
@@ -296,7 +297,8 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
             try managedContext.save()
             print("Data Saved Successfully!")
             print(imageURL)
-            Loaf("Your image successfully added to your favorite!", state: .success, location: .bottom, presentingDirection: .vertical, dismissingDirection: .vertical, sender: self).show()
+            self.showAlert_(title: "Save", message: "", timeToDissapear: 2, on: self)
+            //Loaf("Your image successfully added to your favorite!", state: .success, location: .bottom, presentingDirection: .vertical, dismissingDirection: .vertical, sender: self).show()
         }
         catch let error as NSError {
             print(error.localizedDescription)
@@ -371,30 +373,31 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
     
     //關閉視窗
     @objc func dismissAlert() {
-        guard let targetView = mytargetView else {
-            return
-        }
-        UIView.animate(withDuration: 0.25,
-                       animations: {
-                        //改alertView Y軸位置讓alertView滑出螢幕
-                        self.alertView.frame = CGRect(x: targetView.frame.size.width/2 - 50, y: targetView.frame.size.height, width: 100, height: 80)
-                       },completion: { done in
-                        if done{
-                            UIView.animate(withDuration: 0.25,animations: {
-                                
-                            }, completion: { done in
-                                if done{
-                                    //再清除UIView
-                                    //移除新增至alertView裡的所有物件
+        alertView.alpha = 0
+//        guard let targetView = mytargetView else {
+//            return
+//        }
+//        UIView.animate(withDuration: 0.25,
+//                       animations: {
+//                        //改alertView Y軸位置讓alertView滑出螢幕
+//                        self.alertView.frame = CGRect(x: targetView.frame.size.width/2 - 50, y: targetView.frame.size.height, width: 100, height: 80)
+//                       },completion: { done in
+//                        if done{
+//                            UIView.animate(withDuration: 0.25,animations: {
+//
+//                            }, completion: { done in
+//                                if done{
+//                                    //再清除UIView
+//                                    //移除新增至alertView裡的所有物件
 //                                    for child : UIView in self.alertView.subviews as [UIView]{
 //                                        child.removeFromSuperview()
 //                                    }
-                                    //移除alertview
-                                    self.alertView.removeFromSuperview()
-                                }
-                            })
-                        }
-                       })
+//                                    //移除alertview
+//                                    self.alertView.removeFromSuperview()
+//                                }
+//                            })
+//                        }
+//                       })
     }
         
         

@@ -14,12 +14,46 @@ import DZNEmptyDataSet
 class FavoriteViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
     
-    @IBOutlet weak var favCollectionView: UICollectionView!
+    enum Mode {
+        case view
+        case select
+    }
     
+    var mMode: Mode = .view {
+        didSet{
+            switch mMode {
+            case .view:
+                for (key, value) in dictionarySelectedIndexPath {
+                    if value {
+                        favCollectionView.deselectItem(at: key, animated: true)
+                    }
+                }
+                //dictionarySelectedIndexPath.removeAll()
+                
+                selectBarBtn.title = "Selet"
+                navigationItem.leftBarButtonItem = nil
+                favCollectionView.allowsMultipleSelection = false
+            case .select:
+                selectBarBtn.title = "Cancel"
+                navigationItem.leftBarButtonItem = deleteBarBtn
+                favCollectionView.allowsMultipleSelection = true
+            }
+        }
+    }
+    
+    var selectedItems = [NSManagedObject]()
+    var dictionarySelectedIndexPath: [IndexPath: Bool] = [:]
     var favoriteItems = [NSManagedObject]()
     var managedContext: NSManagedObjectContext?
     var hud: JGProgressHUD?
     var cellSizes = [CGSize]()
+    
+    
+    //宣告selestBtn & deleteBtn
+    @IBOutlet weak var favCollectionView: UICollectionView!
+    @IBOutlet weak var selectBarBtn: UIBarButtonItem!
+    @IBOutlet weak var deleteBarBtn: UIBarButtonItem!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +69,56 @@ class FavoriteViewController: UIViewController, UICollectionViewDelegate, UIColl
         getFavoriteItems()
     }
 
+    
+    @IBAction func didSelectButtonClicked(_ sender: Any) {
+        mMode = mMode == .view ? .select : .view
+    }
+    
+    
+    @IBAction func didDeleteButtonClicked(_ sender: Any) {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context: NSManagedObjectContext = appDelegate.persistentContainer.viewContext
+        var deletNeededIndexPaths: [IndexPath] = []
+        for (key, value) in dictionarySelectedIndexPath {
+            if value {
+                deletNeededIndexPaths.append(key)
+            }
+        }
+        for i in deletNeededIndexPaths {
+            favoriteItems.remove(at: i.row)
+        }
+        for x in selectedItems {
+            context.delete(x)
+        }
+        do {
+            try context.save()
+            DispatchQueue.main.async {
+                self.favCollectionView.reloadData()
+            }
+        } catch let error as NSError {
+            print(error.localizedDescription)
+        }
+        favCollectionView.deleteItems(at: deletNeededIndexPaths)
+        // 要刪除被選中的物件
+        //let
+       //self.delete(indexPath: )
+//        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+//        let context: NSManagedObjectContext = appDelegate.persistentContainer.viewContext
+//        for x in item {
+//            context.delete(x)
+//        }
+//        do {
+//            try context.save()
+//            DispatchQueue.main.async {
+//                self.favCollectionView.reloadData()
+//            }
+//        } catch let error as NSError {
+//            print(error.localizedDescription)
+//        }
+        //dictionarySelectedIndexPath.removeAll()
+    }
+    
+    
     
     func getFavoriteItems() {
         favoriteItems = []
@@ -55,6 +139,7 @@ class FavoriteViewController: UIViewController, UICollectionViewDelegate, UIColl
             print(error.localizedDescription)
         }
     }
+    
     
     
     func setupWaterfallLayout() {
@@ -102,10 +187,30 @@ class FavoriteViewController: UIViewController, UICollectionViewDelegate, UIColl
         return favoriteCell
     }
     
-    //didSelect
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        switch mMode {
+        case .view:
+            favCollectionView.deselectItem(at: indexPath, animated: true)
+            let didSelectItem = favoriteItems[indexPath.row]
+            //這裡是選中可進下一頁
+        //被選中的物件
+        case .select:
+            dictionarySelectedIndexPath[indexPath] = true //可選狀態
+            let i = favoriteItems[indexPath.row]
+            selectedItems.append(i)
+            print(i)
+        }
+    }
     
     
-    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        //是select中，
+        if mMode == .select {
+            //選中的無法再選
+            dictionarySelectedIndexPath[indexPath] = false
+        }
+    }
     
     
     
