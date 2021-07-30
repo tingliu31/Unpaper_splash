@@ -92,7 +92,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
     //宣告一個名為mytargetView的UIView，取得ViewController.view
     var mytargetView: UIView?
     var uiVC: UIViewController?
-    
+    var imageDetail: [DetailData] = []
     
     
     @IBOutlet weak var likesLabel: UILabel!
@@ -103,6 +103,8 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
     
     
     var photoDetails: PhotoData?
+    var photoDetails2: Result?
+    var photoDetails3: NSManagedObject?
     
        
     override func viewDidLoad() {
@@ -110,6 +112,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 
         
         setupPhotoDetail()
+        getImageEXIF(id: (photoDetails?.id)!)
 
         //隱藏Left bar item
         navigationItem.leftBarButtonItem = nil
@@ -187,18 +190,30 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
     
     
     func setupPhotoDetail() {
-        if let authorImageURL = photoDetails?.user?.profile_image?.medium, let url = URL(string: authorImageURL) {
-        self.authorImageView.sd_setImage(with: url, completed: nil)
+        
+        //if let authorImageURL = photoDetails?.user?.profile_image?.medium, let url = URL(string: authorImageURL) {
+        //self.authorImageView.sd_setImage(with: url, completed: nil)
+
+        if let imageURL = photoDetails?.urls?.regular {
+            self.imageView.sd_setImage(with: imageURL, completed: nil)
         }
-        let imageURL = photoDetails?.urls?.regular
-        self.imageView.sd_setImage(with: imageURL, completed: nil)
-        let authorNameUrl = photoDetails?.user?.name
-        self.nameLabel.text = authorNameUrl
-        let likes = photoDetails?.likes
-        self.likesLabel.text = String(likes ?? 0)
+        //let authorNameUrl = photoDetails?.user?.name
+        //self.nameLabel.text = authorNameUrl
+        //let likes = photoDetails?.likes
+        //self.likesLabel.text = String(likes ?? 0)
+        //}
         
+        if let imageURL = photoDetails2?.urls?.regular, let url = URL(string: imageURL) {
+            self.imageView.sd_setImage(with: url, completed: nil)
+        }
         
+//        if let imageURL = URL(string: photoDetails3?.value(forKey: "imageURL") as! String) {
+//
+//            self.imageView.sd_setImage(with: imageURL, completed: nil)
+//        }
+            //= URL(string: favorite.value(forKey: "imageURL") as! String) else { return }
     }
+    
     
     func zoomBtn(_ sender: Any) {
         
@@ -401,4 +416,30 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
     }
         
         
+    
+    func getImageEXIF(id: String) {
+        let id = (photoDetails?.id)!
+        let baseURL = "https://api.unsplash.com/photos/\(id)?client_id=ujAYBJVDy9u57y3nJsLVr-byAW6bRoCXuLAjnd0OANo"
+        
+        print(baseURL)
+        
+        guard let url = URL(string: baseURL) else { return }
+        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+            guard let datailData = data, error == nil else {
+                return
+            }
+            do{
+                let jasonResult = try JSONDecoder().decode(DetailData.self, from: datailData)
+                print("Got Detail jsonResult !!!")
+                print(jasonResult.id!)
+                print(jasonResult.location?.position ?? "")
+            }catch{
+                print("Detail Decode error: \(error)")
+            }
+        }
+        task.resume()
+    }
+
+
+
 }

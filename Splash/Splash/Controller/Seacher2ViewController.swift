@@ -16,7 +16,7 @@ class Seacher2ViewController: UIViewController, UISearchBarDelegate, UICollectio
     
 
     var searchResults: [Result] = []
-    
+    var seacherToPass: Result?
     private var collectionView: UICollectionView?
     var scrollView: UIScrollView!
     let searcherBar = UISearchBar()
@@ -96,7 +96,16 @@ class Seacher2ViewController: UIViewController, UISearchBarDelegate, UICollectio
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let DetailVC = self.storyboard?.instantiateViewController(identifier: "DetailVC") {
             self.navigationController?.pushViewController(DetailVC, animated: true)
-            
+        }
+    }
+    
+    
+    //傳送資料到下一頁 DetailViewController
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destination = segue.destination as? DetailViewController {
+            guard let row = collectionView?.indexPathsForSelectedItems?.first?.row else {return}
+            destination.photoDetails2? = searchResults[row]
+                //photoListData[(tableView.indexPathForSelectedRow?.row)!]
         }
     }
     

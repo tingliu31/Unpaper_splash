@@ -21,8 +21,6 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
 
     
     
-    
-    
     enum ParamConstants {
         static let perPage: Int = 30
         static let orderBy: OrderBy = .latest
@@ -268,6 +266,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
 //    }
     
     
+  
 
     
 }

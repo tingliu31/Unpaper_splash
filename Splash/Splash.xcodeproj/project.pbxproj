@@ -28,6 +28,8 @@
 		3F24838D26AC7C6E00C26F47 /* Seacher2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F24838C26AC7C6E00C26F47 /* Seacher2ViewController.swift */; };
 		3F24839026AC7E8600C26F47 /* Search2CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F24838F26AC7E8600C26F47 /* Search2CollectionViewCell.swift */; };
 		3F89E51D26B037D500D587F7 /* FavoriteCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F89E51C26B037D500D587F7 /* FavoriteCollectionViewCell.swift */; };
+		3F97430C26B41240001EFF91 /* ImageExifData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F97430B26B41240001EFF91 /* ImageExifData.swift */; };
+		3F97431026B4494F001EFF91 /* PresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F97430F26B4494F001EFF91 /* PresentationController.swift */; };
 		3FF35C6C26B09B74007F9385 /* Splash.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3FF35C6A26B09B74007F9385 /* Splash.xcdatamodeld */; };
 		DB1597347D6E720CF41372C7 /* Pods_Splash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0D0A2DBC3385DE4DBB7F950 /* Pods_Splash.framework */; };
 /* End PBXBuildFile section */
@@ -57,6 +59,8 @@
 		3F24838C26AC7C6E00C26F47 /* Seacher2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Seacher2ViewController.swift; sourceTree = "<group>"; };
 		3F24838F26AC7E8600C26F47 /* Search2CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search2CollectionViewCell.swift; sourceTree = "<group>"; };
 		3F89E51C26B037D500D587F7 /* FavoriteCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCollectionViewCell.swift; sourceTree = "<group>"; };
+		3F97430B26B41240001EFF91 /* ImageExifData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageExifData.swift; sourceTree = "<group>"; };
+		3F97430F26B4494F001EFF91 /* PresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationController.swift; sourceTree = "<group>"; };
 		3FF35C6B26B09B74007F9385 /* Unsplash.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Unsplash.xcdatamodel; sourceTree = "<group>"; };
 		C23C7724E99D3AB934BAA540 /* Pods-Splash.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Splash.release.xcconfig"; path = "Target Support Files/Pods-Splash/Pods-Splash.release.xcconfig"; sourceTree = "<group>"; };
 		E0D0A2DBC3385DE4DBB7F950 /* Pods_Splash.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Splash.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -127,6 +131,7 @@
 				3F24833326AABBB300C26F47 /* Extension_image.swift */,
 				3F24832926A9E83C00C26F47 /* PhotoListData.swift */,
 				3F24838926AC5AD500C26F47 /* SearchData.swift */,
+				3F97430B26B41240001EFF91 /* ImageExifData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -136,6 +141,7 @@
 			children = (
 				3F24837626AC00F200C26F47 /* Cell */,
 				3F24837226ABD6FD00C26F47 /* DetailViewController.swift */,
+				3F97430F26B4494F001EFF91 /* PresentationController.swift */,
 				3F24837726AC026800C26F47 /* SearchViewController.swift */,
 				3F24838C26AC7C6E00C26F47 /* Seacher2ViewController.swift */,
 				3F24833026AAAFCA00C26F47 /* ListViewController.swift */,
@@ -279,7 +285,9 @@
 			files = (
 				3FF35C6C26B09B74007F9385 /* Splash.xcdatamodeld in Sources */,
 				3F24834026AAD6EF00C26F47 /* FavoriteViewController.swift in Sources */,
+				3F97431026B4494F001EFF91 /* PresentationController.swift in Sources */,
 				3F2482BC26A8872D00C26F47 /* ViewController.swift in Sources */,
+				3F97430C26B41240001EFF91 /* ImageExifData.swift in Sources */,
 				3F24832E26AAAF9000C26F47 /* ListCollectionViewCell.swift in Sources */,
 				3F24838D26AC7C6E00C26F47 /* Seacher2ViewController.swift in Sources */,
 				3F89E51D26B037D500D587F7 /* FavoriteCollectionViewCell.swift in Sources */,

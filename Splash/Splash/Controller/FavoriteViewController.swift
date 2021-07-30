@@ -93,12 +93,13 @@ class FavoriteViewController: UIViewController, UICollectionViewDelegate, UIColl
         do {
             try context.save()
             DispatchQueue.main.async {
+                self.favCollectionView.deleteItems(at: deletNeededIndexPaths)
                 self.favCollectionView.reloadData()
             }
         } catch let error as NSError {
             print(error.localizedDescription)
         }
-        favCollectionView.deleteItems(at: deletNeededIndexPaths)
+        
         // 要刪除被選中的物件
         //let
        //self.delete(indexPath: )
@@ -193,6 +194,9 @@ class FavoriteViewController: UIViewController, UICollectionViewDelegate, UIColl
         case .view:
             favCollectionView.deselectItem(at: indexPath, animated: true)
             let didSelectItem = favoriteItems[indexPath.row]
+            performSegue(withIdentifier: "favToDetailVCSegue", sender: didSelectItem)
+            
+            guard let url = URL(string: didSelectItem.value(forKey: "imageURL") as! String) else {return}
             //這裡是選中可進下一頁
         //被選中的物件
         case .select:
@@ -213,6 +217,18 @@ class FavoriteViewController: UIViewController, UICollectionViewDelegate, UIColl
     }
     
     
+    //傳送資料到下一頁 DetailViewController
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destination = segue.destination as? DetailViewController {
+            guard let row = favCollectionView?.indexPathsForSelectedItems?.first?.row else {return}
+            
+            //guard let url = URL(string: favorite.value(forKey: "imageURL") as! String) else { return }
+            //destination.photoDetails2? = searchResults[row]
+                //photoListData[(tableView.indexPathForSelectedRow?.row)!]
+        }
+    }
+    
+    
     
 }
 
@@ -223,7 +239,7 @@ extension FavoriteViewController: CollectionViewWaterfallLayoutDelegate {
     
     func collectionView(_ collectionView: UICollectionView, layout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         let favorite = favoriteItems[indexPath.row]
-        let favoriteWidth = favorite.value(forKey: "width") as! Int
+        let favoriteWidth = favorite.value(forKey: "width") as? Int ?? 800
         let favoriteHeight = favorite.value(forKey: "height") as! Int
         cellSizes.append(CGSize(width: favoriteWidth, height: favoriteHeight))
         print(cellSizes)
