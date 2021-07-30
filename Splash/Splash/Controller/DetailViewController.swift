@@ -22,8 +22,29 @@ import CoreData
 //}
 
 
-class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UIScrollViewDelegate {
+class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UIScrollViewDelegate, UIViewControllerTransitioningDelegate {
 
+    
+    //infoBtn
+    @objc private let infoBtn: UIButton = {
+        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+        
+        button.backgroundColor = .black
+        let image = UIImage(systemName: "info.circle", withConfiguration: UIImage.SymbolConfiguration(pointSize: 25, weight: .light))
+        button.setImage(image, for: .normal)
+        button.tintColor = .white
+        button.setTitleColor(.white, for: .normal)
+        //Shadow
+        button.layer.shadowRadius = 6
+        button.layer.shadowOpacity = 0.6
+        //Corner Radius
+        button.layer.masksToBounds = true
+        button.layer.cornerRadius = 25
+        return button
+    }()
+    
+    
+    
     //DownloadButton
     @objc private let downloadBtn: UIButton = {
         let button = UIButton(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
@@ -95,9 +116,8 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
     var imageDetail: [DetailData] = []
     
     
-    @IBOutlet weak var likesLabel: UILabel!
+
     @IBOutlet weak var authorImageView: UIImageView!
-    @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var imageView: UIImageView!
     var scrollView: UIScrollView!
     
@@ -163,6 +183,10 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
         //SaveBtn
         view.addSubview(saveBtn)
         saveBtn.addTarget(self, action: #selector(addToCollection), for: .touchUpInside)
+        
+        //infoBtn
+        view.addSubview(infoBtn)
+        infoBtn.addTarget(self, action: #selector(presntImageInfoPage), for: .touchUpInside)
     }
     
     
@@ -184,6 +208,10 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
                                 width: 50, height: 50)
         
         saveBtn.frame = CGRect(x: view.frame.size.width - 70, y: view.frame.size.height - 250, width: 50, height: 50)
+        
+        infoBtn.frame = CGRect(x: view.frame.size.width - 380,
+                               y: view.frame.size.height - 120,
+                               width: 50, height: 50)
     }
     
     
@@ -214,12 +242,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
             //= URL(string: favorite.value(forKey: "imageURL") as! String) else { return }
     }
     
-    
-    func zoomBtn(_ sender: Any) {
-        
-      
-    }
-    
+
     
     @IBAction func closeBtn(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
@@ -441,5 +464,25 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
     }
 
 
-
+    
+    @objc func presntImageInfoPage() {
+        let presentVC = PresentDetailViewController()
+        presentVC.modalPresentationStyle = .custom
+        presentVC.transitioningDelegate = self
+        self.present(presentVC, animated: true, completion: nil)
+    }
+    
+    
+    func go2() {
+        
+        
+    }
+    
+    
+    
+    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
+        PresentationController(presentedViewController: presented, presenting: presenting)
+    }
+    
+    
 }

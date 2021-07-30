@@ -159,7 +159,6 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     
     
-    
     func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         //取得所有的operation
         for op in self.queue.operations {
@@ -169,6 +168,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
             }
         }
     }
+    
     
     //判斷畫面是否滑到最下面
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
