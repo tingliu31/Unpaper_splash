@@ -6,14 +6,22 @@
 //
 
 import UIKit
+import CoreData
 
 class PresentDetailViewController: UIViewController {
 
     
     var imageInfo: DetailData?
     var photoDetails: PhotoData?
+    var photoDetails2: Result?
+    var photoDetails3: NSManagedObject?
+    
     var hasSetPointOrigin = false
     var pointOrigin: CGPoint?
+    var managedContext: NSManagedObjectContext?
+    var id: String?
+    var idFromCore: String?
+    var favoriteItems = [NSManagedObject]()
     
     
     @IBOutlet weak var slideView: UIView!
@@ -29,7 +37,7 @@ class PresentDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        getImageEXIF(id: (photoDetails?.id)!)
+        getImageEXIF()
         //setUpImageDetails()
         
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(panGestureRecognizerAction))
@@ -85,15 +93,49 @@ class PresentDetailViewController: UIViewController {
     }
     
     
+
+    func getFavoriteID() {
+        
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
+        managedContext = appDelegate.persistentContainer.viewContext
+        
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Splash")
+        do {
+            let unsplash = try managedContext?.fetch(fetchRequest)
+            //idFromCore =
+            for data in unsplash! {
+                self.photoDetails3 = data
+            }
+
+        } catch let error as NSError {
+            print(error.localizedDescription)
+        }
+    }
     
     
     
     
-    func getImageEXIF(id: String) {
-        let id = (photoDetails?.id)!
-        let baseURL = "https://api.unsplash.com/photos/\(id)?client_id=ujAYBJVDy9u57y3nJsLVr-byAW6bRoCXuLAjnd0OANo"
+    
+    func getImageEXIF() {
+        //let id = (photoDetails?.id)!
+        
+        if let imageID = photoDetails?.id {
+            self.id = imageID
+        } else if let imageID = photoDetails2?.id {
+            self.id = imageID
+//            getFavoriteID()
+//            let imageID = object?.value(forKey: "id") as? String
+//            self.id = imageID
+        } else {
+            let imageID = photoDetails3?.value(forKey: "id") as? String
+            self.id = imageID
+        }
+        
+        
+        let baseURL = "https://api.unsplash.com/photos/\(self.id ?? "")?client_id=ujAYBJVDy9u57y3nJsLVr-byAW6bRoCXuLAjnd0OANo"
         
         print(baseURL)
+        print("id: \(self.id ?? "")")
         
         guard let url = URL(string: baseURL) else { return }
         let task = URLSession.shared.dataTask(with: url) { (data, response, error) in

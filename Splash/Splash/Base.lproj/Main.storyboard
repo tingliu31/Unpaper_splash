@@ -93,11 +93,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="selectedImageTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
                         <segue destination="iZp-hS-TCD" kind="relationship" relationship="viewControllers" id="bSj-gs-tEn"/>
                         <segue destination="iAi-cC-OQN" kind="relationship" relationship="viewControllers" id="efJ-sV-6J4"/>
                         <segue destination="LQ4-f5-KHa" kind="relationship" relationship="viewControllers" id="acR-se-BMh"/>
+                        <segue destination="pAS-Lj-NSo" kind="relationship" relationship="viewControllers" id="kjD-M7-kqq"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YfQ-mF-pi7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -291,13 +293,18 @@
                                 <viewLayoutGuide key="contentLayoutGuide" id="8LJ-W7-Nxi"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="t2K-Wh-sP9"/>
                             </scrollView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="acm-Eo-ghL">
-                                <rect key="frame" x="0.0" y="145" width="414" height="555"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="acm-Eo-ghL">
+                                <rect key="frame" x="0.0" y="128" width="414" height="565"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="p28-cQ-XMj"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="acm-Eo-ghL" firstAttribute="trailing" secondItem="p28-cQ-XMj" secondAttribute="trailing" id="HsR-Ob-3XV"/>
+                            <constraint firstItem="p28-cQ-XMj" firstAttribute="bottom" secondItem="acm-Eo-ghL" secondAttribute="bottom" constant="120" id="S5c-zw-68h"/>
+                            <constraint firstItem="acm-Eo-ghL" firstAttribute="top" secondItem="p28-cQ-XMj" secondAttribute="top" constant="40" id="bb9-JL-uRw"/>
+                            <constraint firstItem="acm-Eo-ghL" firstAttribute="leading" secondItem="p28-cQ-XMj" secondAttribute="leading" id="f9V-40-N05"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="y6H-PC-m1K">
                         <barButtonItem key="rightBarButtonItem" title="Item" image="multiply.circle" catalog="system" id="o8a-ao-4rV">
@@ -527,11 +534,13 @@
             </objects>
             <point key="canvasLocation" x="4165" y="1719"/>
         </scene>
-        <!--Item-->
+        <!--Navigation Controller-->
         <scene sceneID="1QD-c2-Kb8">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="iZp-hS-TCD" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="jpl-zD-Kmf"/>
+                    <tabBarItem key="tabBarItem" title="" image="photo" catalog="system" selectedImage="photo" id="jpl-zD-Kmf">
+                        <color key="badgeColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="4Pg-kj-LND">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -546,11 +555,13 @@
             </objects>
             <point key="canvasLocation" x="241" y="736"/>
         </scene>
-        <!--Item 2-->
+        <!--Navigation Controller-->
         <scene sceneID="Hs0-eq-gcV">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="LQ4-f5-KHa" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item 2" id="ftG-cS-bXf"/>
+                    <tabBarItem key="tabBarItem" title="" image="heart" catalog="system" selectedImage="heart" id="ftG-cS-bXf">
+                        <color key="badgeColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="e36-9d-zZp">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -565,11 +576,31 @@
             </objects>
             <point key="canvasLocation" x="2006" y="736"/>
         </scene>
-        <!--Item-->
+        <!--View Controller-->
+        <scene sceneID="9cD-wZ-g7T">
+            <objects>
+                <viewController id="pAS-Lj-NSo" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="TGE-3k-xvc">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="JJ1-t5-Siy"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="" image="gearshape" catalog="system" selectedImage="gearshape" id="87a-TY-aoe">
+                        <color key="badgeColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBarItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="adB-Ma-NfY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2938" y="736"/>
+        </scene>
+        <!--Navigation Controller-->
         <scene sceneID="WYk-4f-iHg">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="iAi-cC-OQN" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="GxJ-zd-arW"/>
+                    <tabBarItem key="tabBarItem" title="" image="magnifyingglass" catalog="system" selectedImage="magnifyingglass" id="GxJ-zd-arW">
+                        <color key="badgeColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="LDU-TY-8Ef">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -588,7 +619,11 @@
     <resources>
         <image name="arrow.clockwise" catalog="system" width="115" height="128"/>
         <image name="checkmark.circle" catalog="system" width="128" height="121"/>
+        <image name="gearshape" catalog="system" width="128" height="121"/>
+        <image name="heart" catalog="system" width="128" height="109"/>
+        <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="multiply.circle" catalog="system" width="128" height="121"/>
+        <image name="photo" catalog="system" width="128" height="93"/>
         <image name="photo-1621609764095-b32bbe35cf3a" width="4000" height="5000"/>
         <image name="trash" catalog="system" width="121" height="128"/>
         <systemColor name="systemBackgroundColor">

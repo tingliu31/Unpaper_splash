@@ -28,7 +28,7 @@ class FavoriteViewController: UIViewController, UICollectionViewDelegate, UIColl
                         favCollectionView.deselectItem(at: key, animated: true)
                     }
                 }
-                //dictionarySelectedIndexPath.removeAll()
+                dictionarySelectedIndexPath.removeAll()
                 
                 selectBarBtn.title = "Selet"
                 navigationItem.leftBarButtonItem = nil
@@ -58,6 +58,7 @@ class FavoriteViewController: UIViewController, UICollectionViewDelegate, UIColl
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         favCollectionView.delegate = self
         favCollectionView.dataSource = self
         favCollectionView.emptyDataSetSource = self
@@ -71,6 +72,7 @@ class FavoriteViewController: UIViewController, UICollectionViewDelegate, UIColl
 
     
     @IBAction func didSelectButtonClicked(_ sender: Any) {
+        navigationItem.leftBarButtonItem = deleteBarBtn
         mMode = mMode == .view ? .select : .view
     }
     
@@ -78,22 +80,32 @@ class FavoriteViewController: UIViewController, UICollectionViewDelegate, UIColl
     @IBAction func didDeleteButtonClicked(_ sender: Any) {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context: NSManagedObjectContext = appDelegate.persistentContainer.viewContext
+        //刪除物件的位置
+        //key是IndexPath
         var deletNeededIndexPaths: [IndexPath] = []
         for (key, value) in dictionarySelectedIndexPath {
             if value {
                 deletNeededIndexPaths.append(key)
             }
         }
+        
+
+        //刪除 收藏畫面的物件---------------------
+        //問題： i.row是指畫面上的第幾筆, 要刪除的是被選中的那筆資料
         for i in deletNeededIndexPaths {
+            //favoriteItems.remove(at: i.row)
+            context.delete(favoriteItems[i.row] as NSManagedObject)
             favoriteItems.remove(at: i.row)
+
         }
-        for x in selectedItems {
-            context.delete(x)
-        }
+        //刪除CoreData裡的資料
+//        for x in selectedItems {
+//            context.delete(x)
+//        }
         do {
             try context.save()
             DispatchQueue.main.async {
-                self.favCollectionView.deleteItems(at: deletNeededIndexPaths)
+                //self.favCollectionView.deleteItems(at: deletNeededIndexPaths)
                 self.favCollectionView.reloadData()
             }
         } catch let error as NSError {
@@ -192,12 +204,16 @@ class FavoriteViewController: UIViewController, UICollectionViewDelegate, UIColl
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch mMode {
         case .view:
-            favCollectionView.deselectItem(at: indexPath, animated: true)
-            let didSelectItem = favoriteItems[indexPath.row]
-            performSegue(withIdentifier: "favToDetailVCSegue", sender: didSelectItem)
-            
-            guard let url = URL(string: didSelectItem.value(forKey: "imageURL") as! String) else {return}
             //這裡是選中可進下一頁
+            favCollectionView.deselectItem(at: indexPath, animated: true)
+            if let DetailVC = self.storyboard?.instantiateViewController(identifier: "DetailVC") as? DetailViewController {
+                self.navigationController?.pushViewController(DetailVC, animated: true)
+                //guard let row = favCollectionView?.indexPathsForSelectedItems?.first?.row else {return}
+                DetailVC.photoDetails3 = favoriteItems[indexPath.row]
+            }
+            print(favoriteItems[indexPath.row].value(forKey: "id") as? String ?? "")
+            
+            
         //被選中的物件
         case .select:
             dictionarySelectedIndexPath[indexPath] = true //可選狀態
@@ -218,15 +234,13 @@ class FavoriteViewController: UIViewController, UICollectionViewDelegate, UIColl
     
     
     //傳送資料到下一頁 DetailViewController
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let destination = segue.destination as? DetailViewController {
-            guard let row = favCollectionView?.indexPathsForSelectedItems?.first?.row else {return}
-            
-            //guard let url = URL(string: favorite.value(forKey: "imageURL") as! String) else { return }
-            //destination.photoDetails2? = searchResults[row]
-                //photoListData[(tableView.indexPathForSelectedRow?.row)!]
-        }
-    }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if let destination = segue.destination as? DetailViewController {
+//            guard let row = favCollectionView?.indexPathsForSelectedItems?.first?.row else {return}
+//            destination.photoDetails3 = favoriteItems[row]
+//
+//        }
+//    }
     
     
     
@@ -239,8 +253,8 @@ extension FavoriteViewController: CollectionViewWaterfallLayoutDelegate {
     
     func collectionView(_ collectionView: UICollectionView, layout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         let favorite = favoriteItems[indexPath.row]
-        let favoriteWidth = favorite.value(forKey: "width") as? Int ?? 800
-        let favoriteHeight = favorite.value(forKey: "height") as! Int
+        let favoriteWidth = favorite.value(forKey: "width") as! Int //? Int ?? 800
+        let favoriteHeight = favorite.value(forKey: "height") as! Int //? Int ?? 1000
         cellSizes.append(CGSize(width: favoriteWidth, height: favoriteHeight))
         print(cellSizes)
         return cellSizes[indexPath.item]

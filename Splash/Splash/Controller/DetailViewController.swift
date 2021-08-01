@@ -132,7 +132,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 
         
         setupPhotoDetail()
-        getImageEXIF(id: (photoDetails?.id)!)
+        //getImageEXIF(id: (photoDetails?.id)!)
 
         //隱藏Left bar item
         navigationItem.leftBarButtonItem = nil
@@ -219,28 +219,22 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
     
     func setupPhotoDetail() {
         
-        //if let authorImageURL = photoDetails?.user?.profile_image?.medium, let url = URL(string: authorImageURL) {
-        //self.authorImageView.sd_setImage(with: url, completed: nil)
-
+        //From ListVC
         if let imageURL = photoDetails?.urls?.regular {
             self.imageView.sd_setImage(with: imageURL, completed: nil)
             self.imageView.frame.size.width = view.frame.size.width
         }
-        //let authorNameUrl = photoDetails?.user?.name
-        //self.nameLabel.text = authorNameUrl
-        //let likes = photoDetails?.likes
-        //self.likesLabel.text = String(likes ?? 0)
-        //}
         
-        if let imageURL = photoDetails2?.urls?.regular, let url = URL(string: imageURL) {
+        //From SearchVC
+        if let imageString = photoDetails2?.urls?.regular, let url = URL(string: imageString) {
             self.imageView.sd_setImage(with: url, completed: nil)
         }
         
-//        if let imageURL = URL(string: photoDetails3?.value(forKey: "imageURL") as! String) {
-//
-//            self.imageView.sd_setImage(with: imageURL, completed: nil)
-//        }
-            //= URL(string: favorite.value(forKey: "imageURL") as! String) else { return }
+        //From FavVC
+        if let imageURL = URL(string: photoDetails3?.value(forKey: "imageURL") as? String ?? "") {
+            self.imageView.sd_setImage(with: imageURL, completed: nil)
+        }
+
     }
     
 
@@ -261,7 +255,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
     func zoomRectForScale(scale: CGFloat, center: CGPoint) -> CGRect {
         var zoomRect = CGRect.zero
         zoomRect.size.height = imageView.frame.size.height / scale
-        zoomRect.size.width  = imageView.frame.size.width  / scale
+        zoomRect.size.width  = imageView.frame.size.width / scale
         let newCenter = imageView.convert(center, from: scrollView)
         zoomRect.origin.x = newCenter.x - (zoomRect.size.width / 2.0)
         zoomRect.origin.y = newCenter.y - (zoomRect.size.height / 2.0)
@@ -294,9 +288,21 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
     
     
     @objc func downloadImage(_ sender: Any) {
-        let url = (photoDetails?.urls?.raw)!
-        //let urlString = "\(String(describing: url))"
-        self.saveImageToAlbum(image: url)
+        
+        //From ListVC
+        if let urlString = photoDetails?.urls?.raw {
+            self.saveImageToAlbum(image: urlString)
+        }
+        
+        //From SearchVC
+        if let urlString = photoDetails2?.urls?.raw {
+            self.saveImageToAlbum(image: urlString)
+        }
+        
+        //From FavVC
+        if let urlString = photoDetails3?.value(forKey: "imageURL") as? String {
+            self.saveImageToAlbum(image: urlString)
+        }
     }
     
     
@@ -313,17 +319,33 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
     
     
     @objc func addToCollection() {
-        let url = (photoDetails?.urls?.regular)!
-        let urlString = "\(url)"
-        let width = photoDetails?.width
-        let height = photoDetails?.height
-        self.saveToCoreData(imageURL: urlString, width: width ?? 0, height: height ?? 0)
-        print(urlString)
+        
+        //From ListVC
+        if let url = photoDetails?.urls?.regular {
+            let urlString = "\(url)"
+            let width = photoDetails?.width
+            let height = photoDetails?.height
+            let id = (photoDetails?.id)!
+            self.saveToCoreData(imageURL: urlString, width: width ?? 0, height: height ?? 0, id: id)
+        }
+        
+        //From SearchVC
+        if let url = photoDetails2?.urls?.regular {
+            let urlString = "\(url)"
+            let width = photoDetails2?.width
+            let height = photoDetails2?.height
+            let id = (photoDetails2?.id)!
+            self.saveToCoreData(imageURL: urlString, width: width ?? 0, height: height ?? 0, id: id)
+        }
+        
+        
+        
+        
         self.showAlert_(title: "Done", message: "", timeToDissapear: 2, on: self)
     }
     
     
-    func saveToCoreData(imageURL: String, width: Int, height: Int) {
+    func saveToCoreData(imageURL: String, width: Int, height: Int, id: String) {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
         let managedContext = appDelegate.persistentContainer.viewContext
         
@@ -332,10 +354,12 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
         unsplash.setValue(imageURL, forKey: "imageURL")
         unsplash.setValue(width, forKey: "width")
         unsplash.setValue(height, forKey: "height")
+        unsplash.setValue(id, forKey: "id")
         do {
             try managedContext.save()
             print("Data Saved Successfully!")
             print(imageURL)
+            print(id)
             self.showAlert_(title: "Save", message: "", timeToDissapear: 2, on: self)
             //Loaf("Your image successfully added to your favorite!", state: .success, location: .bottom, presentingDirection: .vertical, dismissingDirection: .vertical, sender: self).show()
         }
@@ -427,42 +451,14 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
         
         
     
-    func getImageEXIF(id: String) {
-        let id = (photoDetails?.id)!
-        let baseURL = "https://api.unsplash.com/photos/\(id)?client_id=ujAYBJVDy9u57y3nJsLVr-byAW6bRoCXuLAjnd0OANo"
-        
-        print(baseURL)
-        
-        guard let url = URL(string: baseURL) else { return }
-        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
-            guard let datailData = data, error == nil else {
-                return
-            }
-            do{
-                let jasonResult = try JSONDecoder().decode(DetailData.self, from: datailData)
-                print("Got Detail jsonResult !!!")
-                print(jasonResult.id!)
-                print(jasonResult.location?.position ?? "")
-            }catch{
-                print("Detail Decode error: \(error)")
-            }
-        }
-        task.resume()
-    }
-
-
-    
     @objc func presntImageInfoPage() {
         let presentVC = PresentDetailViewController()
         presentVC.modalPresentationStyle = .custom
         presentVC.transitioningDelegate = self
+        presentVC.photoDetails = self.photoDetails
+        presentVC.photoDetails2 = self.photoDetails2
+        presentVC.photoDetails3 = self.photoDetails3
         self.present(presentVC, animated: true, completion: nil)
-    }
-    
-    
-    func go2() {
-        
-        
     }
     
     

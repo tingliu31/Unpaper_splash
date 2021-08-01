@@ -16,7 +16,7 @@ class Seacher2ViewController: UIViewController, UISearchBarDelegate, UICollectio
     
 
     var searchResults: [Result] = []
-    var seacherToPass: Result?
+    //var seacherToPass: Result?
     private var collectionView: UICollectionView?
     var scrollView: UIScrollView!
     let searcherBar = UISearchBar()
@@ -91,8 +91,10 @@ class Seacher2ViewController: UIViewController, UISearchBarDelegate, UICollectio
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let DetailVC = self.storyboard?.instantiateViewController(identifier: "DetailVC") {
+        if let DetailVC = self.storyboard?.instantiateViewController(identifier: "DetailVC") as? DetailViewController {
             self.navigationController?.pushViewController(DetailVC, animated: true)
+            DetailVC.photoDetails2 = searchResults[indexPath.row]
+            
         }
     }
     
