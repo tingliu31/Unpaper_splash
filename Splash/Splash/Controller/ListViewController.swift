@@ -124,6 +124,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     
+    
     // Setup the cell content
     func configure(cell: ListTableViewCell, indexPath: IndexPath) {
         //set up the image
@@ -139,12 +140,14 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
  
+    
     //傳送資料到下一頁 DetailViewController
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? DetailViewController {
             destination.photoDetails = photoListData[(tableView.indexPathForSelectedRow?.row)!]
         }
     }
+    
     
     
     // Setup the height For Row, by image size
@@ -191,6 +194,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
             getPhotoListData(page: page)
         }
     }
+    
     
    
     // GetDataFromJson

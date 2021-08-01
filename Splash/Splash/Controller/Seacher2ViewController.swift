@@ -22,14 +22,11 @@ class Seacher2ViewController: UIViewController, UISearchBarDelegate, UICollectio
     let searcherBar = UISearchBar()
     var hud: JGProgressHUD?
     var page = 1
-    
+    //var keyboardDismissTapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: nil)
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        self.tabBarController?.hidesBottomBarWhenPushed = false
-        self.tabBarController?.tabBar.isHidden = false
-       
+        
         searcherBar.delegate = self
         view.addSubview(searcherBar)
         
@@ -120,6 +117,7 @@ class Seacher2ViewController: UIViewController, UISearchBarDelegate, UICollectio
     }
     
     
+    
   
     
     
@@ -155,6 +153,14 @@ class Seacher2ViewController: UIViewController, UISearchBarDelegate, UICollectio
     }
     
     
+    
+    func addTapGesture(){
+            let tap = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+            view.addGestureRecognizer(tap)
+        }
+    @objc private func hideKeyboard(){
+            self.view.endEditing(true)
+        }
     
 }
 

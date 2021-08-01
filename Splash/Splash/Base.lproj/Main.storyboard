@@ -9,30 +9,81 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Seacher2 View Controller-->
+        <!--Seacher Home View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="Seacher2ViewController" customModule="Splash" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="SeacherHomeViewController" customModule="Splash" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Tap the search bar to search" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kfn-cx-OQk">
-                                <rect key="frame" x="99" y="438" width="217" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="EmN-Fu-kBB">
+                                <rect key="frame" x="20" y="88" width="374" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="V2b-ul-jYa"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="Photos"/>
+                                    <segment title="Users"/>
+                                </segments>
+                                <connections>
+                                    <action selector="changePageSegment:" destination="BYZ-38-t0r" eventType="valueChanged" id="6x8-dL-2CI"/>
+                                </connections>
+                            </segmentedControl>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ogl-mu-32J">
+                                <rect key="frame" x="0.0" y="118" width="414" height="778"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="4iF-7c-1Kd">
+                                        <rect key="frame" x="0.0" y="0.0" width="828" height="778"/>
+                                        <subviews>
+                                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xMy-I9-n3t">
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="778"/>
+                                                <connections>
+                                                    <segue destination="wo9-2B-FFa" kind="embed" id="vy5-Kv-L3q"/>
+                                                </connections>
+                                            </containerView>
+                                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WuX-Ms-Zm8">
+                                                <rect key="frame" x="414" y="0.0" width="414" height="778"/>
+                                                <connections>
+                                                    <segue destination="kk9-Mh-kx8" kind="embed" id="636-hC-C9P"/>
+                                                </connections>
+                                            </containerView>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="4iF-7c-1Kd" firstAttribute="top" secondItem="Zxs-hL-3vk" secondAttribute="top" id="2C5-Wx-dft"/>
+                                    <constraint firstItem="4iF-7c-1Kd" firstAttribute="bottom" secondItem="Zxs-hL-3vk" secondAttribute="bottom" id="6Oj-pA-uuE"/>
+                                    <constraint firstItem="4iF-7c-1Kd" firstAttribute="leading" secondItem="Zxs-hL-3vk" secondAttribute="leading" id="XHU-sa-gjg"/>
+                                    <constraint firstItem="4iF-7c-1Kd" firstAttribute="height" secondItem="eIl-Pa-hXV" secondAttribute="height" id="Z9q-oq-Ihf"/>
+                                    <constraint firstItem="4iF-7c-1Kd" firstAttribute="trailing" secondItem="Zxs-hL-3vk" secondAttribute="trailing" id="ojr-6k-UO5"/>
+                                    <constraint firstItem="eIl-Pa-hXV" firstAttribute="width" secondItem="xMy-I9-n3t" secondAttribute="width" id="p1E-xc-hh7"/>
+                                </constraints>
+                                <viewLayoutGuide key="contentLayoutGuide" id="Zxs-hL-3vk"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="eIl-Pa-hXV"/>
+                            </scrollView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="EmN-Fu-kBB" secondAttribute="trailing" constant="20" id="3pA-4g-7gE"/>
+                            <constraint firstItem="EmN-Fu-kBB" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Kkt-lb-Co8"/>
+                            <constraint firstItem="ogl-mu-32J" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="LVi-oy-Tlc"/>
+                            <constraint firstItem="ogl-mu-32J" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="SpP-JJ-psl"/>
+                            <constraint firstItem="EmN-Fu-kBB" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="XMf-uc-fcz"/>
+                            <constraint firstAttribute="bottom" secondItem="ogl-mu-32J" secondAttribute="bottom" id="a4T-J9-LKt"/>
+                            <constraint firstItem="ogl-mu-32J" firstAttribute="top" secondItem="EmN-Fu-kBB" secondAttribute="bottom" id="mul-4h-jAv"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="hyD-Oy-9uU"/>
+                    <connections>
+                        <outlet property="pageSegment" destination="EmN-Fu-kBB" id="L9M-Gm-mz1"/>
+                        <outlet property="scrollView" destination="ogl-mu-32J" id="EEm-2s-FFR"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1096" y="1471"/>
+            <point key="canvasLocation" x="1095.6521739130435" y="1470.5357142857142"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="j8H-N5-XLa">
@@ -262,7 +313,165 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GIe-cU-hFW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="661" y="2211"/>
+            <point key="canvasLocation" x="-332" y="2320"/>
+        </scene>
+        <!--Seacher2 View Controller-->
+        <scene sceneID="eGq-2p-MRs">
+            <objects>
+                <viewController id="wo9-2B-FFa" customClass="Seacher2ViewController" customModule="Splash" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="bYp-Ro-qup">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="778"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="HSx-fZ-MXR"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XDi-YH-T1K" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="668" y="2275"/>
+        </scene>
+        <!--Search Peoeple Table View Controller-->
+        <scene sceneID="cBL-8n-3Tr">
+            <objects>
+                <tableViewController id="8rd-dW-FM0" customClass="SearchPeoepleTableViewController" customModule="Splash" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="100" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="T5j-4Q-4d2">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <sections>
+                            <tableViewSection id="5bi-h1-gBY">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="60" id="bnT-kd-nno">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="60"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="bnT-kd-nno" id="SUr-NB-hob">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <searchBar contentMode="redraw" id="Dyc-h8-kQo">
+                                                    <rect key="frame" x="10" y="10" width="394" height="44"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </searchBar>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="100" id="6V1-af-Ywc">
+                                        <rect key="frame" x="0.0" y="88" width="414" height="100"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="6V1-af-Ywc" id="s1x-N8-fEC">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="100"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="b5Y-ub-fcx">
+                                                    <rect key="frame" x="35" y="15" width="70" height="70"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Sky Walker" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2to-Hg-z6e">
+                                                    <rect key="frame" x="130" y="27" width="88" height="24"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="@Sky Walker" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R80-rH-43q">
+                                                    <rect key="frame" x="130" y="52" width="81" height="20"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="14"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="8rd-dW-FM0" id="fXC-6T-TYh"/>
+                            <outlet property="delegate" destination="8rd-dW-FM0" id="ZMQ-6e-Fhu"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <outlet property="igLabel" destination="R80-rH-43q" id="R7N-OW-JoC"/>
+                        <outlet property="nameLabel" destination="2to-Hg-z6e" id="GTO-Ip-LvT"/>
+                        <outlet property="searchBar" destination="Dyc-h8-kQo" id="Ytk-hd-shR"/>
+                        <outlet property="userImageView" destination="b5Y-ub-fcx" id="eaP-xP-WZa"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OSl-7z-mF7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1468" y="2275"/>
+        </scene>
+        <!--Search People View Controller-->
+        <scene sceneID="Nxc-0V-lKl">
+            <objects>
+                <viewController id="kk9-Mh-kx8" customClass="SearchPeopleViewController" customModule="Splash" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="eDD-9C-umD">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="778"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fcf-h2-Qda">
+                                <rect key="frame" x="0.0" y="109" width="414" height="669"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="100" id="u79-9Q-7cr" customClass="SearchPeopleTableViewCell" customModule="Splash" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="100"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="u79-9Q-7cr" id="4gG-VM-4vw">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="100"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Sky Walker" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xmj-yE-Thg">
+                                                    <rect key="frame" x="127" y="26" width="220" height="24"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="@Sky Walker" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M5O-mf-0x5">
+                                                    <rect key="frame" x="127" y="51" width="224" height="20"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="14"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uwu-40-Z0V">
+                                                    <rect key="frame" x="36" y="15" width="70" height="70"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
+                                        <connections>
+                                            <outlet property="igLabel" destination="M5O-mf-0x5" id="0l7-To-4bJ"/>
+                                            <outlet property="nameLabel" destination="xmj-yE-Thg" id="JFZ-pA-8ZZ"/>
+                                            <outlet property="userImageView" destination="uwu-40-Z0V" id="7Rg-ff-eZJ"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <sections/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="2IL-5j-1jB"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="2IL-5j-1jB" firstAttribute="trailing" secondItem="fcf-h2-Qda" secondAttribute="trailing" id="11t-HJ-gs5"/>
+                            <constraint firstItem="fcf-h2-Qda" firstAttribute="leading" secondItem="2IL-5j-1jB" secondAttribute="leading" id="7aE-Qj-zG8"/>
+                            <constraint firstItem="2IL-5j-1jB" firstAttribute="bottom" secondItem="fcf-h2-Qda" secondAttribute="bottom" id="LRj-63-PIZ"/>
+                            <constraint firstItem="fcf-h2-Qda" firstAttribute="top" secondItem="2IL-5j-1jB" secondAttribute="top" constant="65" id="VNZ-02-j4x"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="QBy-9s-rcj"/>
+                    <connections>
+                        <outlet property="tableView" destination="fcf-h2-Qda" id="eIx-f0-dne"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6aP-k4-B98" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2279.7101449275365" y="2274.7767857142858"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="MNk-Pd-P0H">
@@ -316,7 +525,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RaP-eK-eG5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2829" y="1471"/>
+            <point key="canvasLocation" x="4165" y="1719"/>
         </scene>
         <!--Item-->
         <scene sceneID="1QD-c2-Kb8">

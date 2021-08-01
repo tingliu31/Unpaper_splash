@@ -17,6 +17,11 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var checkImage: UIImageView!
     
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        print()
+    }
+    
     override var isHighlighted: Bool {
         didSet {
             highLightView.isHidden = !isHighlighted
@@ -30,10 +35,7 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        print()
-    }
+
     
     func configureCell(favorite: NSManagedObject) {
         guard let url = URL(string: favorite.value(forKey: "imageURL") as! String) else { return }

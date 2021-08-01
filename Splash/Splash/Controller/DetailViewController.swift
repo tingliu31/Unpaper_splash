@@ -163,7 +163,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
         
         
         let doubleTapGest = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTapScrollView(recognizer:)))
-        doubleTapGest.numberOfTapsRequired = 1
+        doubleTapGest.numberOfTapsRequired = 2
         scrollView.addGestureRecognizer(doubleTapGest)
         self.view.addSubview(scrollView)
         
@@ -224,6 +224,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 
         if let imageURL = photoDetails?.urls?.regular {
             self.imageView.sd_setImage(with: imageURL, completed: nil)
+            self.imageView.frame.size.width = view.frame.size.width
         }
         //let authorNameUrl = photoDetails?.user?.name
         //self.nameLabel.text = authorNameUrl
@@ -278,7 +279,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
         activityVC.completionWithItemsHandler = {(activityType: UIActivity.ActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) in
             // 如果錯誤存在，跳出錯誤視窗並顯示給使用者。
             if error != nil {
-                self.showAlert(title: "Error", message: "Error:\(error!.localizedDescription)")
+                self.showAlert_(title: "Error", message: "", timeToDissapear: 2, on: self)
                 return
             }
             // 如果發送成功，跳出提示視窗顯示成功。
@@ -360,20 +361,6 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
         self.dismiss(animated: true, completion: nil)
     }
     
-    
-    // 警告
-    func showAlert(title:String,message:String) {
-        // 建立一個提示框
-        let alertController = UIAlertController(title: title,message: message,preferredStyle: .alert)
-        // 建立[確認]按鈕
-//        let okAction = UIAlertAction(title: "確認", style: .default) { (_) in
-//            self.navigationController?.popViewController(animated: true)
-//            }
-//        alertController.addAction(okAction)
-        // 顯示提示框
-        self.present(alertController,animated: true,completion: nil)
-        //self.dismiss(animated: true, completion: nil)
-    }
     
     
     func showAlert_(title: String, message: String, timeToDissapear: Int, on ViewController: UIViewController) -> Void {

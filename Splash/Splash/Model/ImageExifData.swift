@@ -40,7 +40,7 @@ struct DetailData: Codable {
         
         // MARK: - Position
         struct Position: Codable {
-            let latitude, longitude: Int?
+            let latitude, longitude: Double?
         }
     }
 
