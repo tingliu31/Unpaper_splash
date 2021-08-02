@@ -168,7 +168,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
         self.view.addSubview(scrollView)
         
         //imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: vWidth, height: vHeight))
-        self.imageView.layer.cornerRadius = 11.0
+        //self.imageView.layer.cornerRadius = 11.0
         self.imageView.clipsToBounds = false
         scrollView.addSubview(imageView)
         
@@ -221,18 +221,40 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
         
         //From ListVC
         if let imageURL = photoDetails?.urls?.regular {
-            self.imageView.sd_setImage(with: imageURL, completed: nil)
-            self.imageView.frame.size.width = view.frame.size.width
+            self.imageView.sd_setImage(with: imageURL) { image, error, cachtType, url in
+                if let image = image {
+                    if Int(image.size.height) > Int(image.size.width) {
+                        self.imageView.contentMode = .scaleAspectFill
+                        //self.imageView.clipsToBounds = true
+                    }
+                }
+            }
+            //self.imageView.sd_setImage(with: imageURL, completed: nil)
+            //self.imageView.frame.size.width = view.frame.size.width
         }
         
         //From SearchVC
         if let imageString = photoDetails2?.urls?.regular, let url = URL(string: imageString) {
-            self.imageView.sd_setImage(with: url, completed: nil)
+            self.imageView.sd_setImage(with: url) { image, error, cachtType, url in
+                if let image = image {
+                    if Int(image.size.height) > Int(image.size.width) {
+                        self.imageView.contentMode = .scaleAspectFill
+                        //self.imageView.clipsToBounds = true
+                    }
+                }
+            }
         }
         
         //From FavVC
         if let imageURL = URL(string: photoDetails3?.value(forKey: "imageURL") as? String ?? "") {
-            self.imageView.sd_setImage(with: imageURL, completed: nil)
+            self.imageView.sd_setImage(with: imageURL) { image, error, cachtType, url in
+                if let image = image {
+                    if Int(image.size.height) > Int(image.size.width) {
+                        self.imageView.contentMode = .scaleAspectFill
+                        //self.imageView.clipsToBounds = true
+                    }
+                }
+            }
         }
 
     }
@@ -247,10 +269,12 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
     @objc func handleDoubleTapScrollView(recognizer: UITapGestureRecognizer) {
         if scrollView.zoomScale == 1 {
             scrollView.zoom(to: zoomRectForScale(scale: scrollView.maximumZoomScale, center: recognizer.location(in: recognizer.view)), animated: true)
+            
         } else {
             scrollView.setZoomScale(1, animated: true)
         }
     }
+    
     
     func zoomRectForScale(scale: CGFloat, center: CGPoint) -> CGRect {
         var zoomRect = CGRect.zero
@@ -260,6 +284,18 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
         zoomRect.origin.x = newCenter.x - (zoomRect.size.width / 2.0)
         zoomRect.origin.y = newCenter.y - (zoomRect.size.height / 2.0)
         return zoomRect
+    }
+    
+    
+    
+    func updateZoomSizeFor(size: CGSize) {
+        let widthScale = size.width / imageView.bounds.width
+        let heightScale = size.height / imageView.bounds.height
+        let scale = min(widthScale, heightScale)
+        scrollView.minimumZoomScale = scale
+        scrollView.zoomScale = scale
+        scrollView.maximumZoomScale = max(widthScale, heightScale)
+        scrollView.zoomScale = scale
     }
     
     

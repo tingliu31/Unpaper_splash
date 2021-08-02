@@ -178,15 +178,8 @@
                             <constraint firstItem="BQe-Kw-SB1" firstAttribute="bottom" secondItem="f4q-h5-spW" secondAttribute="bottom" id="jg6-XM-Lyn"/>
                         </constraints>
                     </view>
-                    <toolbarItems>
-                        <barButtonItem title="Item" image="trash" catalog="system" id="YmP-39-iaS"/>
-                    </toolbarItems>
+                    <toolbarItems/>
                     <navigationItem key="navigationItem" id="CgA-Ol-iZ1">
-                        <barButtonItem key="leftBarButtonItem" title="Item" image="trash" catalog="system" id="W11-rP-d9V">
-                            <connections>
-                                <action selector="didDeleteButtonClicked:" destination="tQl-HD-ZgO" id="7KE-nG-QJV"/>
-                            </connections>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Select" id="q48-Bl-1Zv">
                             <connections>
                                 <action selector="didSelectButtonClicked:" destination="tQl-HD-ZgO" id="Adz-L5-gjz"/>
@@ -195,7 +188,6 @@
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="deleteBarBtn" destination="W11-rP-d9V" id="Iu8-Iz-PLJ"/>
                         <outlet property="favCollectionView" destination="f4q-h5-spW" id="iBG-hT-YI1"/>
                         <outlet property="selectBarBtn" destination="q48-Bl-1Zv" id="pVG-kx-XtO"/>
                     </connections>
@@ -625,7 +617,6 @@
         <image name="multiply.circle" catalog="system" width="128" height="121"/>
         <image name="photo" catalog="system" width="128" height="93"/>
         <image name="photo-1621609764095-b32bbe35cf3a" width="4000" height="5000"/>
-        <image name="trash" catalog="system" width="121" height="128"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

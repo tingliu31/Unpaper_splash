@@ -16,7 +16,6 @@
 		3F24832A26A9E83C00C26F47 /* PhotoListData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F24832926A9E83C00C26F47 /* PhotoListData.swift */; };
 		3F24832E26AAAF9000C26F47 /* ListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F24832D26AAAF9000C26F47 /* ListCollectionViewCell.swift */; };
 		3F24833126AAAFCA00C26F47 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F24833026AAAFCA00C26F47 /* ListViewController.swift */; };
-		3F24833426AABBB300C26F47 /* Extension_image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F24833326AABBB300C26F47 /* Extension_image.swift */; };
 		3F24833726AAC13D00C26F47 /* GetDataFromAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F24833626AAC13D00C26F47 /* GetDataFromAPI.swift */; };
 		3F24834026AAD6EF00C26F47 /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F24833F26AAD6EF00C26F47 /* FavoriteViewController.swift */; };
 		3F24835D26AAEE6500C26F47 /* ListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F24835C26AAEE6500C26F47 /* ListTableViewCell.swift */; };
@@ -54,7 +53,6 @@
 		3F24832926A9E83C00C26F47 /* PhotoListData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoListData.swift; sourceTree = "<group>"; };
 		3F24832D26AAAF9000C26F47 /* ListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCollectionViewCell.swift; sourceTree = "<group>"; };
 		3F24833026AAAFCA00C26F47 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
-		3F24833326AABBB300C26F47 /* Extension_image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension_image.swift; sourceTree = "<group>"; };
 		3F24833626AAC13D00C26F47 /* GetDataFromAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetDataFromAPI.swift; sourceTree = "<group>"; };
 		3F24833F26AAD6EF00C26F47 /* FavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
 		3F24835C26AAEE6500C26F47 /* ListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableViewCell.swift; sourceTree = "<group>"; };
@@ -142,7 +140,6 @@
 			children = (
 				3FF35C6A26B09B74007F9385 /* Splash.xcdatamodeld */,
 				3F24836026AB2D6400C26F47 /* ImageOperation.swift */,
-				3F24833326AABBB300C26F47 /* Extension_image.swift */,
 				3F24832926A9E83C00C26F47 /* PhotoListData.swift */,
 				3F24838926AC5AD500C26F47 /* SearchPhotoData.swift */,
 				3F97432126B496BB001EFF91 /* SearchUserData.swift */,
@@ -316,7 +313,6 @@
 				3F24838D26AC7C6E00C26F47 /* Seacher2ViewController.swift in Sources */,
 				3F89E51D26B037D500D587F7 /* FavoriteCollectionViewCell.swift in Sources */,
 				3F24837326ABD6FD00C26F47 /* DetailViewController.swift in Sources */,
-				3F24833426AABBB300C26F47 /* Extension_image.swift in Sources */,
 				3F97431E26B48FAE001EFF91 /* SearchPeopleViewController.swift in Sources */,
 				3F24833126AAAFCA00C26F47 /* ListViewController.swift in Sources */,
 				3F97431626B4513D001EFF91 /* PresentDetailViewController.swift in Sources */,

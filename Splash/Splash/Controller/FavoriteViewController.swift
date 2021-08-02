@@ -35,7 +35,7 @@ class FavoriteViewController: UIViewController, UICollectionViewDelegate, UIColl
                 favCollectionView.allowsMultipleSelection = false
             case .select:
                 selectBarBtn.title = "Cancel"
-                navigationItem.leftBarButtonItem = deleteBarBtn
+                navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(didDeleteButtonClicked(_:)))
                 favCollectionView.allowsMultipleSelection = true
             }
         }
@@ -43,7 +43,7 @@ class FavoriteViewController: UIViewController, UICollectionViewDelegate, UIColl
     
     var selectedItems = [NSManagedObject]()
     var dictionarySelectedIndexPath: [IndexPath: Bool] = [:]
-    var favoriteItems = [NSManagedObject]()
+    var favoriteItems = [Splash]()
     var managedContext: NSManagedObjectContext?
     var hud: JGProgressHUD?
     var cellSizes = [CGSize]()
@@ -52,7 +52,7 @@ class FavoriteViewController: UIViewController, UICollectionViewDelegate, UIColl
     //宣告selestBtn & deleteBtn
     @IBOutlet weak var favCollectionView: UICollectionView!
     @IBOutlet weak var selectBarBtn: UIBarButtonItem!
-    @IBOutlet weak var deleteBarBtn: UIBarButtonItem!
+
     
     
     override func viewDidLoad() {
@@ -72,7 +72,7 @@ class FavoriteViewController: UIViewController, UICollectionViewDelegate, UIColl
 
     
     @IBAction func didSelectButtonClicked(_ sender: Any) {
-        navigationItem.leftBarButtonItem = deleteBarBtn
+        
         mMode = mMode == .view ? .select : .view
     }
     
@@ -88,47 +88,24 @@ class FavoriteViewController: UIViewController, UICollectionViewDelegate, UIColl
                 deletNeededIndexPaths.append(key)
             }
         }
-        
-
         //刪除 收藏畫面的物件---------------------
         //問題： i.row是指畫面上的第幾筆, 要刪除的是被選中的那筆資料
         for i in deletNeededIndexPaths {
             //favoriteItems.remove(at: i.row)
             context.delete(favoriteItems[i.row] as NSManagedObject)
             favoriteItems.remove(at: i.row)
-
         }
-        //刪除CoreData裡的資料
-//        for x in selectedItems {
-//            context.delete(x)
-//        }
+        dictionarySelectedIndexPath = [:]
+
         do {
             try context.save()
             DispatchQueue.main.async {
-                //self.favCollectionView.deleteItems(at: deletNeededIndexPaths)
+                
                 self.favCollectionView.reloadData()
             }
         } catch let error as NSError {
             print(error.localizedDescription)
         }
-        
-        // 要刪除被選中的物件
-        //let
-       //self.delete(indexPath: )
-//        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-//        let context: NSManagedObjectContext = appDelegate.persistentContainer.viewContext
-//        for x in item {
-//            context.delete(x)
-//        }
-//        do {
-//            try context.save()
-//            DispatchQueue.main.async {
-//                self.favCollectionView.reloadData()
-//            }
-//        } catch let error as NSError {
-//            print(error.localizedDescription)
-//        }
-        //dictionarySelectedIndexPath.removeAll()
     }
     
     
@@ -138,7 +115,7 @@ class FavoriteViewController: UIViewController, UICollectionViewDelegate, UIColl
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
         managedContext = appDelegate.persistentContainer.viewContext
         
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Splash")
+        let fetchRequest = NSFetchRequest<Splash>(entityName: "Splash")
         do {
             let unsplash = try managedContext?.fetch(fetchRequest)
             for data in unsplash! {
@@ -166,27 +143,6 @@ class FavoriteViewController: UIViewController, UICollectionViewDelegate, UIColl
     }
     
     
-    func delete(indexPath: IndexPath) {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context: NSManagedObjectContext = appDelegate.persistentContainer.viewContext
-        
-        context.delete(favoriteItems[indexPath.row] as NSManagedObject)
-        favoriteItems.remove(at: indexPath.row)
-        
-        do {
-            try context.save()
-            self.favCollectionView.deleteItems(at: [indexPath])
-             //Loaf("Your image successfully deleted!", state: .success, location: .bottom, presentingDirection: .vertical, dismissingDirection: .vertical, sender: self).show()
-            DispatchQueue.main.async {
-                self.favCollectionView.reloadData()
-            }
-        }
-        catch let error as NSError {
-            print(error.localizedDescription)
-        }
-    }
-    
-    
     
     //MARK: -CollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -208,18 +164,13 @@ class FavoriteViewController: UIViewController, UICollectionViewDelegate, UIColl
             favCollectionView.deselectItem(at: indexPath, animated: true)
             if let DetailVC = self.storyboard?.instantiateViewController(identifier: "DetailVC") as? DetailViewController {
                 self.navigationController?.pushViewController(DetailVC, animated: true)
-                //guard let row = favCollectionView?.indexPathsForSelectedItems?.first?.row else {return}
                 DetailVC.photoDetails3 = favoriteItems[indexPath.row]
             }
-            print(favoriteItems[indexPath.row].value(forKey: "id") as? String ?? "")
-            
+            print("id: \(favoriteItems[indexPath.row].value(forKey: "id") as? String ?? "")")
             
         //被選中的物件
         case .select:
             dictionarySelectedIndexPath[indexPath] = true //可選狀態
-            let i = favoriteItems[indexPath.row]
-            selectedItems.append(i)
-            print(i)
         }
     }
     
@@ -253,11 +204,9 @@ extension FavoriteViewController: CollectionViewWaterfallLayoutDelegate {
     
     func collectionView(_ collectionView: UICollectionView, layout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         let favorite = favoriteItems[indexPath.row]
-        let favoriteWidth = favorite.value(forKey: "width") as! Int //? Int ?? 800
-        let favoriteHeight = favorite.value(forKey: "height") as! Int //? Int ?? 1000
-        cellSizes.append(CGSize(width: favoriteWidth, height: favoriteHeight))
-        print(cellSizes)
-        return cellSizes[indexPath.item]
+        let size = CGSize(width: Int(favorite.width), height: Int(favorite.height))
+        print("\(indexPath.row) = \(size)")
+        return size
     }
     
 }
