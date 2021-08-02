@@ -11,13 +11,10 @@ import Lightbox
 import JGProgressHUD
 
 
-protocol ListLayoutCollectionViewFactoryDelegate: class {
-    var photoData: [PhotoData]? { get set }
-}
 
 
 
-class ListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, xxxDelegate {
 
     
     
@@ -39,19 +36,31 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var tableView: UITableView!
     
     
+    
+    var page : Int = 0
+    var sss: String?
     var hud: JGProgressHUD?
     let queue = OperationQueue()
     var photoListData: [PhotoData] = []
     var lightBoxController: LightboxController?
-    weak var delegate: ListLayoutCollectionViewFactoryDelegate?
     var refreshControl: UIRefreshControl!
-    //var indexPage = 1
+
+    var mytargetView: UIView?
+
     
+    //AlertView
+    @objc private let alertView: UIView = {
+        let alert = UIView()
+        alert.layer.masksToBounds = true
+        alert.backgroundColor = .black
+        alert.layer.cornerRadius = 13
+        return alert
+    }()
     
-    required init?(coder aDecoder: NSCoder) {
-        queue.maxConcurrentOperationCount = 10
-        super.init(coder: aDecoder)
-    }
+//    required init?(coder aDecoder: NSCoder) {
+//        queue.maxConcurrentOperationCount = 10
+//        super.init(coder: aDecoder)
+//    }
 
     
     override func viewDidLoad() {
@@ -65,7 +74,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         refreshControl = UIRefreshControl()
         
-        //refreshControl.addTarget(self, action: #selector(refreshPhotoListData), for: UIControl.Event.valueChanged)
+        
     }
     
     
@@ -80,10 +89,22 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.tableView.separatorStyle = .none
         self.tableView.reloadData()
         
-        loading()
-        //getPhotoListData(page: indexPage)
+        //loading()
+        getPhotoListData(page: page)
 
     }
+    
+    
+    
+    @objc func downloadImagePressed(_ sender: Any, indexPath: IndexPath) {
+        
+        if let imageURL = self.photoListData[indexPath.row].urls?.regular {
+            let imageString = "\(imageURL)"
+            self.saveImageToAlbum(image: imageString)
+        }
+    }
+    
+    
     
     @IBAction func refreshData(_ sender: Any) {
         
@@ -119,6 +140,13 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
 //        }
         
         configure(cell: cell, indexPath: indexPath)
+        cell.index = indexPath.row
+        cell.imageString = self.photoListData[indexPath.row].urls?.raw
+        cell.delegate = self
+        
+        
+        
+        
         return cell
         
     }
@@ -185,15 +213,15 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     
     // page的初始值
-    var page : Int = 0
-    func loading(){
-        if page < 2 {
-            page += 1
-            print("page: \(page)")
-             //test(page: page)
-            getPhotoListData(page: page)
-        }
-    }
+//    var page : Int = 0
+//    func loading(){
+//        if page < 2 {
+//            page += 1
+//            print("page: \(page)")
+//             //test(page: page)
+//            getPhotoListData(page: page)
+//        }
+//    }
     
     
    
@@ -258,19 +286,55 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
 
     
+    func saveImageToAlbum(image: String) {
+        let imageString = image
+        if let url = URL(string: imageString) {
+            let data = try? Data(contentsOf: url)
+            let savedImage = UIImage(data: data!)
+            UIImageWriteToSavedPhotosAlbum(savedImage!, nil, nil, nil)
+            //Loaf("Image successfully saved to your photos!", state: .success, location: .bottom, presentingDirection: .vertical, dismissingDirection: .vertical, sender: self).show()
+            self.showAlert_(title: "Save", message: "", timeToDissapear: 2, on: self)
+        }
+    }
+
     
-//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        let offsetY = scrollView.contentOffset.y
-//        let contentHeight = scrollView.contentSize.height
-//
-//        if (offsetY > contentHeight - scrollView.frame.height * 4) {
-//            indexPage = 2
-//            getPhotoListData(page: indexPage)
-//        }
-//    }
-    
+    func showAlert_(title: String, message: String, timeToDissapear: Int, on ViewController: UIViewController) -> Void {
+        guard let targetView = ViewController.view else{
+            return
+        }
+        //取得目前ViewController.view
+        mytargetView = targetView
+        targetView.addSubview(alertView)
+        //定義alertView長寬和位置
+        alertView.frame = CGRect(x: view.frame.size.width/2 - 50,
+                                 y: view.frame.size.height/2,
+                                 width: 100, height: 80)
+        alertView.backgroundColor = .black
+        alertView.layer.opacity = 0.8
+        //標題
+        let titleLabel = UILabel(frame: CGRect(x: 0,
+                                               y: 0,
+                                               width: 100, height: 80))
+        //titleLabel.center.y = view.frame.size.height/2
+        titleLabel.textColor = UIColor.white
+        titleLabel.font = UIFont.systemFont(ofSize: 16)
+        titleLabel.backgroundColor = .black
+        //標題文字為”title”之內容
+        titleLabel.text = title
+        //標題文字置中對齊
+        titleLabel.textAlignment = .center
+        //將標題titleLabel加入alertView中
+        alertView.addSubview(titleLabel)
+        
+        //Setting the NSTimer to close the alert after timeToDissapear seconds.
+        _ = Timer.scheduledTimer(timeInterval: Double(timeToDissapear), target: self, selector: #selector(dismissAlert), userInfo: nil, repeats: false)
+    }
     
   
 
+    //關閉視窗
+    @objc func dismissAlert() {
+        alertView.alpha = 0
+    }
     
 }

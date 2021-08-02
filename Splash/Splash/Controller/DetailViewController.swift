@@ -112,7 +112,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
     
     //宣告一個名為mytargetView的UIView，取得ViewController.view
     var mytargetView: UIView?
-    var uiVC: UIViewController?
+
     var imageDetail: [DetailData] = []
     
     
@@ -132,7 +132,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 
         
         setupPhotoDetail()
-        //getImageEXIF(id: (photoDetails?.id)!)
+        
 
         //隱藏Left bar item
         navigationItem.leftBarButtonItem = nil
@@ -373,8 +373,6 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
             let id = (photoDetails2?.id)!
             self.saveToCoreData(imageURL: urlString, width: width ?? 0, height: height ?? 0, id: id)
         }
-        
-        
         
         
         self.showAlert_(title: "Done", message: "", timeToDissapear: 2, on: self)
