@@ -15,7 +15,7 @@ import JGProgressHUD
 
 
 class ListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, xxxDelegate {
-
+    
     
     
     enum ParamConstants {
@@ -44,9 +44,9 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     var photoListData: [PhotoData] = []
     var lightBoxController: LightboxController?
     var refreshControl: UIRefreshControl!
-
+    
     var mytargetView: UIView?
-
+    
     
     //AlertView
     @objc private let alertView: UIView = {
@@ -57,15 +57,11 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         return alert
     }()
     
-//    required init?(coder aDecoder: NSCoder) {
-//        queue.maxConcurrentOperationCount = 10
-//        super.init(coder: aDecoder)
-//    }
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         
         hud = JGProgressHUD(style: .extraLight)
         hud?.indicatorView = JGProgressHUDIndeterminateIndicatorView()
@@ -81,7 +77,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     func updateUI() {
         
         self.navigationController?.navigationBar.prefersLargeTitles = true
-        self.navigationItem.title = "Splash"
+        self.navigationItem.title = "Splasher"
         self.navigationController?.navigationBar.isTranslucent = true
         self.navigationController?.navigationBar.alpha = 0.8
         self.tableView.delegate = self
@@ -91,7 +87,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         //loading()
         getPhotoListData(page: page)
-
+        
     }
     
     
@@ -108,9 +104,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     @IBAction func refreshData(_ sender: Any) {
         
-        hud = JGProgressHUD(style: .extraLight)
-        hud?.indicatorView = JGProgressHUDIndeterminateIndicatorView()
-        hud?.show(in: view, animated: true)
+        
         refreshPhotoListData()
         //getPhotoListData(page: 1)
         refreshControl = UIRefreshControl()
@@ -132,17 +126,18 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
             fatalError("Could not dequeue a cell")
         }
         
-//        cell.imageView?.image = nil //可能被reuse，所以要把之前的照片先清除 否殘看到殘影
-//        if let imageURL = self.photoListData[indexPath.row].urls?.regular,
-//           let name = self.photoListData[indexPath.row].user?.name {
-//            let operation = ImageOperation(url: imageURL, String: name, indexPath: indexPath, tableView: tableView)
-//            self.queue.addOperation(operation)
-//        }
+        //        cell.imageView?.image = nil //可能被reuse，所以要把之前的照片先清除 否殘看到殘影
+        //        if let imageURL = self.photoListData[indexPath.row].urls?.regular,
+        //           let name = self.photoListData[indexPath.row].user?.name {
+        //            let operation = ImageOperation(url: imageURL, String: name, indexPath: indexPath, tableView: tableView)
+        //            self.queue.addOperation(operation)
+        //        }
         
         configure(cell: cell, indexPath: indexPath)
         cell.index = indexPath.row
         cell.imageString = self.photoListData[indexPath.row].urls?.raw
         cell.delegate = self
+        cell.uiVC = self
         
         
         
@@ -163,11 +158,11 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
             //Set up the author name Lable
             let name = self.photoListData[indexPath.row].user?.name
             cell.nameLabel.text = "\(name!)"
-
+            
         }
     }
     
- 
+    
     
     //傳送資料到下一頁 DetailViewController
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -213,18 +208,18 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     
     // page的初始值
-//    var page : Int = 0
-//    func loading(){
-//        if page < 2 {
-//            page += 1
-//            print("page: \(page)")
-//             //test(page: page)
-//            getPhotoListData(page: page)
-//        }
-//    }
+    //    var page : Int = 0
+    //    func loading(){
+    //        if page < 2 {
+    //            page += 1
+    //            print("page: \(page)")
+    //             //test(page: page)
+    //            getPhotoListData(page: page)
+    //        }
+    //    }
     
     
-   
+    
     // GetDataFromJson
     func getPhotoListData(page: Int) {
         // 1. 每30筆就跑下一頁
@@ -269,7 +264,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
             let task = URLSession.shared.dataTask(with: listURLString) { (data, response, error) in
                 if let photoData = data, let dataList = try? JSONDecoder().decode([PhotoData].self, from: photoData) {
                     print("Refresh jsonData successful!!!")
-
+                    
                     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
                         
                         self.photoListData = dataList
@@ -284,7 +279,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
             task.resume()
         }
     }
-
+    
     
     func saveImageToAlbum(image: String) {
         let imageString = image
@@ -296,21 +291,23 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
             self.showAlert_(title: "Save", message: "", timeToDissapear: 2, on: self)
         }
     }
-
     
-    func showAlert_(title: String, message: String, timeToDissapear: Int, on ViewController: UIViewController) -> Void {
-        guard let targetView = ViewController.view else{
+    
+    func showAlert_(title: String, message: String, timeToDissapear: Int, on ViewController: UIViewController) {
+
+        
+        guard let targetView = ViewController.view else {
             return
         }
         //取得目前ViewController.view
-        mytargetView = targetView
-        targetView.addSubview(alertView)
+//        mytargetView = targetView
         //定義alertView長寬和位置
         alertView.frame = CGRect(x: view.frame.size.width/2 - 50,
                                  y: view.frame.size.height/2,
                                  width: 100, height: 80)
         alertView.backgroundColor = .black
         alertView.layer.opacity = 0.8
+        targetView.addSubview(alertView)
         //標題
         let titleLabel = UILabel(frame: CGRect(x: 0,
                                                y: 0,
@@ -326,14 +323,16 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         //將標題titleLabel加入alertView中
         alertView.addSubview(titleLabel)
         
+        
         //Setting the NSTimer to close the alert after timeToDissapear seconds.
         _ = Timer.scheduledTimer(timeInterval: Double(timeToDissapear), target: self, selector: #selector(dismissAlert), userInfo: nil, repeats: false)
     }
     
-  
-
+    
+    
     //關閉視窗
     @objc func dismissAlert() {
+        
         alertView.alpha = 0
     }
     

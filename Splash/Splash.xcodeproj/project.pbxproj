@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3F069B9E26B986540064D88A /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F069B9D26B986540064D88A /* ImageViewController.swift */; };
 		3F2482B826A8872D00C26F47 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F2482B726A8872D00C26F47 /* AppDelegate.swift */; };
 		3F2482BA26A8872D00C26F47 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F2482B926A8872D00C26F47 /* SceneDelegate.swift */; };
 		3F2482BC26A8872D00C26F47 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F2482BB26A8872D00C26F47 /* ViewController.swift */; };
@@ -36,12 +37,14 @@
 		3F97432226B496BB001EFF91 /* SearchUserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F97432126B496BB001EFF91 /* SearchUserData.swift */; };
 		3F97432526B4A52B001EFF91 /* SearchPeoepleTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F97432426B4A52B001EFF91 /* SearchPeoepleTableViewController.swift */; };
 		3F97432826B5D89F001EFF91 /* SearchPeopleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F97432726B5D89F001EFF91 /* SearchPeopleTableViewCell.swift */; };
+		3F97436626B889AB001EFF91 /* ImageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F97436526B889AB001EFF91 /* ImageScrollView.swift */; };
 		3FF35C6C26B09B74007F9385 /* Splash.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3FF35C6A26B09B74007F9385 /* Splash.xcdatamodeld */; };
 		DB1597347D6E720CF41372C7 /* Pods_Splash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0D0A2DBC3385DE4DBB7F950 /* Pods_Splash.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0D0A597C6FEA7580C9C5757B /* Pods-Splash.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Splash.debug.xcconfig"; path = "Target Support Files/Pods-Splash/Pods-Splash.debug.xcconfig"; sourceTree = "<group>"; };
+		3F069B9D26B986540064D88A /* ImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 		3F2482B426A8872D00C26F47 /* Splash.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Splash.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F2482B726A8872D00C26F47 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3F2482B926A8872D00C26F47 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -73,6 +76,7 @@
 		3F97432126B496BB001EFF91 /* SearchUserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUserData.swift; sourceTree = "<group>"; };
 		3F97432426B4A52B001EFF91 /* SearchPeoepleTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPeoepleTableViewController.swift; sourceTree = "<group>"; };
 		3F97432726B5D89F001EFF91 /* SearchPeopleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPeopleTableViewCell.swift; sourceTree = "<group>"; };
+		3F97436526B889AB001EFF91 /* ImageScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageScrollView.swift; sourceTree = "<group>"; };
 		3FF35C6B26B09B74007F9385 /* Unsplash.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Unsplash.xcdatamodel; sourceTree = "<group>"; };
 		C23C7724E99D3AB934BAA540 /* Pods-Splash.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Splash.release.xcconfig"; path = "Target Support Files/Pods-Splash/Pods-Splash.release.xcconfig"; sourceTree = "<group>"; };
 		E0D0A2DBC3385DE4DBB7F950 /* Pods_Splash.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Splash.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -140,6 +144,7 @@
 			children = (
 				3FF35C6A26B09B74007F9385 /* Splash.xcdatamodeld */,
 				3F24836026AB2D6400C26F47 /* ImageOperation.swift */,
+				3F97436526B889AB001EFF91 /* ImageScrollView.swift */,
 				3F24832926A9E83C00C26F47 /* PhotoListData.swift */,
 				3F24838926AC5AD500C26F47 /* SearchPhotoData.swift */,
 				3F97432126B496BB001EFF91 /* SearchUserData.swift */,
@@ -153,6 +158,7 @@
 			children = (
 				3F24837626AC00F200C26F47 /* Cell */,
 				3F24837226ABD6FD00C26F47 /* DetailViewController.swift */,
+				3F069B9D26B986540064D88A /* ImageViewController.swift */,
 				3F97431D26B48FAE001EFF91 /* SearchPeopleViewController.swift */,
 				3F97432426B4A52B001EFF91 /* SearchPeoepleTableViewController.swift */,
 				3F97431A26B48F3A001EFF91 /* SeacherHomeViewController.swift */,
@@ -312,6 +318,7 @@
 				3F97432526B4A52B001EFF91 /* SearchPeoepleTableViewController.swift in Sources */,
 				3F24838D26AC7C6E00C26F47 /* Seacher2ViewController.swift in Sources */,
 				3F89E51D26B037D500D587F7 /* FavoriteCollectionViewCell.swift in Sources */,
+				3F069B9E26B986540064D88A /* ImageViewController.swift in Sources */,
 				3F24837326ABD6FD00C26F47 /* DetailViewController.swift in Sources */,
 				3F97431E26B48FAE001EFF91 /* SearchPeopleViewController.swift in Sources */,
 				3F24833126AAAFCA00C26F47 /* ListViewController.swift in Sources */,
@@ -323,6 +330,7 @@
 				3F24839026AC7E8600C26F47 /* Search2CollectionViewCell.swift in Sources */,
 				3F97431B26B48F3A001EFF91 /* SeacherHomeViewController.swift in Sources */,
 				3F24832A26A9E83C00C26F47 /* PhotoListData.swift in Sources */,
+				3F97436626B889AB001EFF91 /* ImageScrollView.swift in Sources */,
 				3F24836126AB2D6400C26F47 /* ImageOperation.swift in Sources */,
 				3F24833726AAC13D00C26F47 /* GetDataFromAPI.swift in Sources */,
 				3F24838626AC093500C26F47 /* SearchCollectionViewCell.swift in Sources */,

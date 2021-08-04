@@ -6,11 +6,14 @@
 //
 
 import UIKit
+import JGProgressHUD
 
 
 
 protocol xxxDelegate: class {
-    func showAlert_(title: String, message: String, timeToDissapear: Int, on ViewController: UIViewController) -> Void
+//    func test()
+    func showAlert_(title: String, message: String, timeToDissapear: Int, on ViewController: UIViewController)
+    
 }
 
 class ListTableViewCell: UITableViewCell {
@@ -25,7 +28,8 @@ class ListTableViewCell: UITableViewCell {
     var index: Int?
     var imageString: String?
     weak var delegate: xxxDelegate?
-    
+    var uiVC : ListViewController?
+    var hud: JGProgressHUD?
     
     
     override func awakeFromNib() {
@@ -43,14 +47,18 @@ class ListTableViewCell: UITableViewCell {
     
     @IBAction func saveImagePressed(_ sender: Any) {
         
-        print("Save Image")
+//        hud = JGProgressHUD(style: .dark)
+//        hud?.indicatorView = JGProgressHUDIndeterminateIndicatorView()
+//        hud?.show(in: (uiVC?.view)!, animated: true)
+        
         self.saveImageToAlbum(image: imageString!)
-        let uiVC = UIViewController()
-        self.delegate?.showAlert_(title: "Save", message: "", timeToDissapear: 2, on: uiVC)
-//        if let imagestring = imageString {
-//            completionHandler?(imagestring)
-//        }
+        print("Download Image successful!!")
+        
+        //self.hud?.dismiss(animated: true)
+        self.delegate?.showAlert_(title: "Save", message: "", timeToDissapear: 2, on: uiVC!)
+
     }
+    
     
     func setupElments() {
         self.listImageView.contentMode = .scaleAspectFill

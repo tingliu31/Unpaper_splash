@@ -15,5 +15,6 @@ pod 'JGProgressHUD'
 pod 'SVProgressHUD'
 pod 'Loaf'
 pod 'CollectionViewWaterfallLayout'
+pod 'MBProgressHUD'
 
 end

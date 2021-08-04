@@ -10,6 +10,7 @@ PODS:
   - Lightbox (2.5.0):
     - Imaginary (~> 5.0.0)
   - Loaf (0.7.0)
+  - MBProgressHUD (1.2.0)
   - SDWebImage (5.11.1):
     - SDWebImage/Core (= 5.11.1)
   - SDWebImage/Core (5.11.1)
@@ -26,6 +27,7 @@ DEPENDENCIES:
   - JGProgressHUD
   - Lightbox
   - Loaf
+  - MBProgressHUD
   - SDWebImage
   - SVProgressHUD
   - UnsplasherSDK
@@ -41,6 +43,7 @@ SPEC REPOS:
     - JGProgressHUD
     - Lightbox
     - Loaf
+    - MBProgressHUD
     - SDWebImage
     - SVProgressHUD
     - SwiftKeychainWrapper
@@ -56,11 +59,12 @@ SPEC CHECKSUMS:
   JGProgressHUD: d83d7a981b85d11205e19ff8ad5bb9c40571c847
   Lightbox: cc3d5124f024fa8197fd23f913160db1c61a1852
   Loaf: d69937cd00649f3fa260beb8b7aef0a1feb861ef
+  MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
   SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   SwiftKeychainWrapper: 38952a3636320ae61bad3513cadd870929de7a4a
   UnsplasherSDK: 3bcebce1019a050aee5bac7a12748d75704d6235
 
-PODFILE CHECKSUM: a765e7768ba6d4a9fa5b216244b43b1655d6cc75
+PODFILE CHECKSUM: 4e87261ed77d41ca407008509a0e59bb03df4456
 
 COCOAPODS: 1.10.1

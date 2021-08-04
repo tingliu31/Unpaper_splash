@@ -168,8 +168,8 @@
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ISO" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wRg-XM-e5h">
-                    <rect key="frame" x="262" y="288" width="24" height="20"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Publish" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wRg-XM-e5h">
+                    <rect key="frame" x="262" y="288" width="45" height="20"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="20" id="d01-y6-zin"/>
                     </constraints>
@@ -177,7 +177,7 @@
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1250" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R6f-SN-a8q">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2019/10/31" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R6f-SN-a8q">
                     <rect key="frame" x="262" y="306" width="126" height="22"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="126" id="BVg-vJ-UdP"/>
@@ -241,7 +241,6 @@
                 <constraint firstItem="V0p-OO-IGW" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="64" id="nhq-e5-deb"/>
                 <constraint firstItem="jO0-kQ-XmW" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="64" id="ojH-Rj-cJd"/>
                 <constraint firstItem="htc-Qi-jYW" firstAttribute="top" secondItem="UEr-RZ-Tr7" secondAttribute="bottom" constant="35" id="ou7-Yu-fuJ"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="wRg-XM-e5h" secondAttribute="trailing" constant="128" id="q9t-MD-gsv"/>
                 <constraint firstItem="wRg-XM-e5h" firstAttribute="top" secondItem="htc-Qi-jYW" secondAttribute="bottom" constant="17" id="qQl-qn-UPq"/>
                 <constraint firstItem="UEr-RZ-Tr7" firstAttribute="top" secondItem="cHP-tK-S1f" secondAttribute="bottom" constant="40" id="rAo-7y-zNs"/>
                 <constraint firstItem="R6f-SN-a8q" firstAttribute="top" secondItem="htc-Qi-jYW" secondAttribute="bottom" constant="35" id="uBF-nA-6fL"/>

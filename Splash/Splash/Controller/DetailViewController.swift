@@ -45,12 +45,33 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
     
     
     
+    //HomeButton
+    @objc private let homeBtn: UIButton = {
+        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+        
+        button.backgroundColor = .white
+        let image = UIImage(systemName: "house", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .medium))
+        button.setImage(image, for: .normal)
+        button.tintColor = .black
+        button.setTitleColor(.black, for: .normal)
+        //Shadow
+        button.layer.shadowRadius = 6
+        button.layer.shadowOpacity = 0.6
+        //Corner Radius
+        button.layer.masksToBounds = true
+        button.layer.cornerRadius = 25
+        return button
+    }()
+    
+    
+    
+    
     //DownloadButton
     @objc private let downloadBtn: UIButton = {
         let button = UIButton(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
         
         button.backgroundColor = .white
-        let image = UIImage(systemName: "arrow.down", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .medium))
+        let image = UIImage(systemName: "square.and.arrow.down", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .medium))
         button.setImage(image, for: .normal)
         button.tintColor = .black
         button.setTitleColor(.black, for: .normal)
@@ -112,16 +133,15 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
     
     //宣告一個名為mytargetView的UIView，取得ViewController.view
     var mytargetView: UIView?
+    var homeTargetView: UIView?
 
     var imageDetail: [DetailData] = []
     
     
-
-    @IBOutlet weak var authorImageView: UIImageView!
     @IBOutlet weak var imageView: UIImageView!
     var scrollView: UIScrollView!
     
-    
+    private var homeImageView: UIImageView!
     var photoDetails: PhotoData?
     var photoDetails2: Result?
     var photoDetails3: NSManagedObject?
@@ -132,6 +152,13 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 
         
         setupPhotoDetail()
+        
+        //MARK: HomeImage
+        let homeImage = UIImage(named: "iphone")
+        homeImageView = UIImageView(image: homeImage)
+        homeImageView.contentMode = .scaleAspectFit
+        homeImageView.isHidden = true
+        //homeImageView.clipsToBounds = true
         
 
         //隱藏Left bar item
@@ -147,54 +174,49 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
         self.navigationController?.view.backgroundColor = UIColor.clear
         
         
+        //MARK: ScrollView
         let vWidth = self.view.frame.width
         let vHeight = self.view.frame.height
-        
         scrollView = UIScrollView()
         scrollView.delegate = self
         scrollView.frame = CGRect(x: 0, y: 0, width: vWidth, height: vHeight)
-        //scrollImg.backgroundColor = UIColor(red: 90, green: 90, blue: 90, alpha: 0.90)
         scrollView.alwaysBounceVertical = false
         scrollView.alwaysBounceHorizontal = false
         scrollView.showsVerticalScrollIndicator = true
         scrollView.flashScrollIndicators()
         scrollView.minimumZoomScale = 1.0
-        scrollView.maximumZoomScale = 10.0
+        scrollView.maximumZoomScale = 2.0
         
-        
+        //MARK: TapGesture
         let doubleTapGest = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTapScrollView(recognizer:)))
         doubleTapGest.numberOfTapsRequired = 2
         scrollView.addGestureRecognizer(doubleTapGest)
         self.view.addSubview(scrollView)
-        
-        //imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: vWidth, height: vHeight))
-        //self.imageView.layer.cornerRadius = 11.0
         self.imageView.clipsToBounds = false
         scrollView.addSubview(imageView)
         
-        //DownloadBtn
+        
+        //MARK: DownloadBtn
         view.addSubview(downloadBtn)
         downloadBtn.addTarget(self, action: #selector(downloadImage), for: .touchUpInside)
         
-        //ShareBtn
+        //MARK: ShareBtn
         view.addSubview(shareBtn)
         shareBtn.addTarget(self, action: #selector(share), for: .touchUpInside)
         
-        //SaveBtn
+        //MARK: SaveBtn
         view.addSubview(saveBtn)
         saveBtn.addTarget(self, action: #selector(addToCollection), for: .touchUpInside)
         
-        //infoBtn
+        //MARK: infoBtn
         view.addSubview(infoBtn)
         infoBtn.addTarget(self, action: #selector(presntImageInfoPage), for: .touchUpInside)
+        
+        //MARK: homeBtn
+        view.addSubview(homeBtn)
+        homeBtn.addTarget(self, action: #selector(onClickHome), for: .touchUpInside)
     }
     
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        self.tabBarController?.hidesBottomBarWhenPushed = false
-        self.tabBarController?.tabBar.isHidden = false
-    }
     
 
     override func viewDidLayoutSubviews() {
@@ -209,10 +231,19 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
         
         saveBtn.frame = CGRect(x: view.frame.size.width - 70, y: view.frame.size.height - 250, width: 50, height: 50)
         
+        homeBtn.frame = CGRect(x: view.frame.size.width - 70, y: view.frame.size.height - 315, width: 50, height: 50)
+        
         infoBtn.frame = CGRect(x: view.frame.size.width - 380,
                                y: view.frame.size.height - 120,
                                width: 50, height: 50)
     }
+    
+    
+    
+    
+    
+    
+    
     
     
     
@@ -225,13 +256,18 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
                 if let image = image {
                     if Int(image.size.height) > Int(image.size.width) {
                         self.imageView.contentMode = .scaleAspectFill
-                        //self.imageView.clipsToBounds = true
                     }
                 }
             }
-            //self.imageView.sd_setImage(with: imageURL, completed: nil)
-            //self.imageView.frame.size.width = view.frame.size.width
         }
+        
+//        if let imageURL = photoDetails?.urls?.regular {
+//            if let imageData = try? Data(contentsOf: imageURL) {
+//                let image  = UIImage(data: imageData)
+//                self.imageScrollView.set(image: image!)
+//            }
+//        }
+        
         
         //From SearchVC
         if let imageString = photoDetails2?.urls?.regular, let url = URL(string: imageString) {
@@ -245,6 +281,16 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
             }
         }
         
+        
+//        if let imageString = photoDetails2?.urls?.regular, let url = URL(string: imageString) {
+//            if let imageData = try? Data(contentsOf: url) {
+//                let image  = UIImage(data: imageData)
+//                self.imageScrollView.set(image: image!)
+//            }
+//        }
+        
+        
+        
         //From FavVC
         if let imageURL = URL(string: photoDetails3?.value(forKey: "imageURL") as? String ?? "") {
             self.imageView.sd_setImage(with: imageURL) { image, error, cachtType, url in
@@ -257,9 +303,17 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
             }
         }
 
+//        if let imageURL = URL(string: photoDetails3?.value(forKey: "imageURL") as? String ?? "") {
+//            if let imageData = try? Data(contentsOf: imageURL) {
+//                let image  = UIImage(data: imageData)
+//                self.imageScrollView.set(image: image!)
+//            }
+//        }
+        
+        
     }
     
-
+    
     
     @IBAction func closeBtn(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
@@ -284,18 +338,6 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
         zoomRect.origin.x = newCenter.x - (zoomRect.size.width / 2.0)
         zoomRect.origin.y = newCenter.y - (zoomRect.size.height / 2.0)
         return zoomRect
-    }
-    
-    
-    
-    func updateZoomSizeFor(size: CGSize) {
-        let widthScale = size.width / imageView.bounds.width
-        let heightScale = size.height / imageView.bounds.height
-        let scale = min(widthScale, heightScale)
-        scrollView.minimumZoomScale = scale
-        scrollView.zoomScale = scale
-        scrollView.maximumZoomScale = max(widthScale, heightScale)
-        scrollView.zoomScale = scale
     }
     
     
@@ -357,7 +399,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
     @objc func addToCollection() {
         
         //From ListVC
-        if let url = photoDetails?.urls?.regular {
+        if let url = photoDetails?.urls?.raw {
             let urlString = "\(url)"
             let width = photoDetails?.width
             let height = photoDetails?.height
@@ -366,14 +408,13 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
         }
         
         //From SearchVC
-        if let url = photoDetails2?.urls?.regular {
+        if let url = photoDetails2?.urls?.raw {
             let urlString = "\(url)"
             let width = photoDetails2?.width
             let height = photoDetails2?.height
             let id = (photoDetails2?.id)!
             self.saveToCoreData(imageURL: urlString, width: width ?? 0, height: height ?? 0, id: id)
         }
-        
         
         self.showAlert_(title: "Done", message: "", timeToDissapear: 2, on: self)
     }
@@ -502,4 +543,49 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
     }
     
     
+    
+    @objc
+    private func onClickHome(on ViewController: UIViewController) {
+//        guard let targetView = ViewController.view else{
+//            return
+//        }
+        let targetView = self.view
+        //取得目前ViewController.view
+        homeTargetView = targetView
+        targetView!.addSubview(homeImageView)
+        print("targetView: \(targetView!.frame)")
+        //homeImageView的位置
+        //homeImageView.frame = CGRect(x: 20, y: 10, width: 370, height: 700)
+        homeImageView.translatesAutoresizingMaskIntoConstraints = false
+        homeImageView.widthAnchor.constraint(equalToConstant: 280).isActive = true
+        homeImageView.heightAnchor.constraint(equalToConstant: 550).isActive = true
+        homeImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 80).isActive = true
+        homeImageView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0).isActive = true
+        homeImageView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0).isActive = true
+        
+        
+//        homeImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 44).isActive = true
+//        homeImageView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
+//        homeImageView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 20).isActive = true
+//        homeTargetView?.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 252).isActive = true
+        
+        print("homeImageView: \(homeImageView.frame)")
+        
+        homeImageView.isHidden = !homeImageView.isHidden
+    }
+
+    
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.tabBarController?.hidesBottomBarWhenPushed = false
+        self.tabBarController?.tabBar.isHidden = false
+    }
+    
 }
+
+
+
+
+
+
