@@ -7,8 +7,9 @@
 
 import UIKit
 import CoreData
+import MapKit
 
-class PresentDetailViewController: UIViewController {
+class PresentDetailViewController: UIViewController, MKMapViewDelegate {
 
     
     var imageInfo: DetailData?
@@ -20,8 +21,12 @@ class PresentDetailViewController: UIViewController {
     var pointOrigin: CGPoint?
     var managedContext: NSManagedObjectContext?
     var id: String?
-    var idFromCore: String?
     var favoriteItems = [NSManagedObject]()
+    
+    var myMapView :MKMapView!
+    let annotation = MKPointAnnotation()
+    
+    var aa: PresentationController?
     
     
     @IBOutlet weak var slideView: UIView!
@@ -32,6 +37,8 @@ class PresentDetailViewController: UIViewController {
     @IBOutlet weak var lengthLabel: UILabel!
     @IBOutlet weak var apertureLabel: UILabel!
     @IBOutlet weak var speedLabel: UILabel!
+    @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var cityLabel: UILabel!
     
     
     override func viewDidLoad() {
@@ -43,6 +50,14 @@ class PresentDetailViewController: UIViewController {
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(panGestureRecognizerAction))
         view.addGestureRecognizer(panGesture)
         //self.slideView.roundCorners(.allCorners, radius: 5)
+        
+        
+        myMapView = MKMapView(frame: CGRect(x: 40, y:410 , width: self.view.frame.width - 80, height: 150))
+        myMapView.delegate = self
+        myMapView.mapType = .standard
+        myMapView.isZoomEnabled = true
+        view.addSubview(myMapView)
+        myMapView.isHidden = true
         
     }
     
@@ -89,7 +104,7 @@ class PresentDetailViewController: UIViewController {
         self.lengthLabel.text = imageInfo?.exif?.focalLength ?? "_"
         self.apertureLabel.text = imageInfo?.exif?.aperture ?? "_"
         self.speedLabel.text = imageInfo?.exif?.exposureTime ?? "_"
-        
+        self.timeLabel.text = imageInfo?.created_at ?? "_"
     }
     
     
@@ -152,6 +167,9 @@ class PresentDetailViewController: UIViewController {
                     self.modelLable.text = self.imageInfo?.exif?.model ?? "_"
                     self.lengthLabel.text = self.imageInfo?.exif?.focalLength ?? "_"
                     
+                    self.timeLabel.text = self.imageInfo?.created_at ?? "_"
+                    self.timeLabel.lineBreakMode = NSLineBreakMode.byClipping
+                    
                     let isoString = self.imageInfo?.exif?.iso
                     if String(isoString ?? 0) == "0" {
                         self.isoLabel.text = "_"
@@ -174,14 +192,49 @@ class PresentDetailViewController: UIViewController {
                     //self.speedLabel.text = self.imageInfo?.exif?.exposureTime ?? "_"
                     
                     
+                    //Location
+                    if self.imageInfo?.location?.city != nil {
+                        self.cityLabel.text = self.imageInfo?.location?.city
+                        self.annotation.title = self.imageInfo?.location?.city
+                    } else {
+                        self.cityLabel.text = "_"
+                    }
+                    
+                    if self.imageInfo?.location?.country != nil && self.imageInfo?.location?.city != nil {
+                        self.cityLabel.text = (self.imageInfo?.location?.city)! + ", " + (self.imageInfo?.location?.country)!
+                        self.annotation.subtitle = self.imageInfo?.location?.country
+                    } else {
+                        self.cityLabel.text = "_"
+                    }
+                    
+                    //地圖myMapView
+                    if self.imageInfo?.location?.position?.latitude != nil && self.imageInfo?.location?.position?.longitude != nil {
+                        let latitude = self.imageInfo?.location?.position?.latitude
+                        let longitude = self.imageInfo?.location?.position?.longitude
+                        print("latitude:", String(latitude!) + ", longitude:" +  String(longitude!)  )
+                        
+                        //設置位置
+                        self.annotation.coordinate = CLLocationCoordinate2D(latitude: latitude!, longitude: longitude!)
+                        
+                        self.myMapView.setCenter(self.annotation.coordinate, animated: true)
+                        self.myMapView.setRegion(MKCoordinateRegion(center: self.annotation.coordinate, latitudinalMeters: 200, longitudinalMeters: 200), animated: true)
+                        self.myMapView.addAnnotation(self.annotation)
+                        
+                        
+                        self.myMapView.isHidden = false
+                        
+                        self.view.frame = CGRect(x: 0, y: self.view.frame.height, width: self.view.frame.width, height: 800)
+                        
+                    }
                 }
-                
             }catch{
                 print("Detail Decode error: \(error)")
             }
         }
         task.resume()
     }
+    
+    
     
     
     

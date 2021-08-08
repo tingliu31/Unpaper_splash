@@ -9,7 +9,7 @@ import Foundation
 
 struct DetailData: Codable {
     let id: String?
-    //let createdAt, updatedAt, promotedAt: Date?
+    let created_at, updated_at, promoted_at: String?
     let width, height: Int?
     let urls: Urls?
     //let user: User?

@@ -7,14 +7,11 @@
 
 import UIKit
 import SDWebImage
-import Lightbox
 import JGProgressHUD
 
 
 
-
-
-class ListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, xxxDelegate {
+class ListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ShowAlertDelegate {
     
     
     
@@ -42,8 +39,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     var hud: JGProgressHUD?
     let queue = OperationQueue()
     var photoListData: [PhotoData] = []
-    var lightBoxController: LightboxController?
-    var refreshControl: UIRefreshControl!
+    //var refreshControl: UIRefreshControl!
     
     var mytargetView: UIView?
     
@@ -58,17 +54,17 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     }()
     
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        //overrideUserInterfaceStyle = .light
         hud = JGProgressHUD(style: .extraLight)
         hud?.indicatorView = JGProgressHUDIndeterminateIndicatorView()
         hud?.show(in: view, animated: true)
         updateUI()
         
-        refreshControl = UIRefreshControl()
+        print(NSHomeDirectory())
+        //refreshControl = UIRefreshControl()
         
         
     }
@@ -83,6 +79,17 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.separatorStyle = .none
+        
+        self.tableView.showsVerticalScrollIndicator = false
+        if #available(iOS 11, *) {
+            self.tableView.contentInsetAdjustmentBehavior = .never
+        } else {
+            self.automaticallyAdjustsScrollViewInsets = false
+        }
+        self.tableView.estimatedSectionHeaderHeight = 0.01
+        
+        
+        
         self.tableView.reloadData()
         
         //loading()
@@ -106,9 +113,8 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         
         refreshPhotoListData()
-        //getPhotoListData(page: 1)
-        refreshControl = UIRefreshControl()
-        tableView.addSubview(refreshControl)
+        //refreshControl = UIRefreshControl()
+        //tableView.addSubview(refreshControl)
         let indexPath = IndexPath(row: 0, section: 0)
         tableView.cellForRow(at: indexPath)
         tableView.scrollToRow(at: indexPath, at: .top, animated: true)

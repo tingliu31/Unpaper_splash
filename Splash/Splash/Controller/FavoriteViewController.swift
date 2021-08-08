@@ -30,18 +30,20 @@ class FavoriteViewController: UIViewController, UICollectionViewDelegate, UIColl
                 }
                 dictionarySelectedIndexPath.removeAll()
                 
-                selectBarBtn.title = "Selet"
+                selectBarBtn.title = "Select"
+                selectBarBtn.tintColor = .black
                 navigationItem.leftBarButtonItem = nil
                 favCollectionView.allowsMultipleSelection = false
             case .select:
                 selectBarBtn.title = "Cancel"
                 navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(didDeleteButtonClicked(_:)))
+                navigationItem.leftBarButtonItem?.tintColor = .black
                 favCollectionView.allowsMultipleSelection = true
             }
         }
     }
     
-    var selectedItems = [NSManagedObject]()
+    
     var dictionarySelectedIndexPath: [IndexPath: Bool] = [:]
     var favoriteItems = [Splash]()
     var managedContext: NSManagedObjectContext?
@@ -58,7 +60,8 @@ class FavoriteViewController: UIViewController, UICollectionViewDelegate, UIColl
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        tabBarItem.imageInsets = UIEdgeInsets(top: 10, left: 0, bottom: -10, right: 0)
+        selectBarBtn.tintColor = .black
         favCollectionView.delegate = self
         favCollectionView.dataSource = self
         favCollectionView.emptyDataSetSource = self
@@ -163,8 +166,11 @@ class FavoriteViewController: UIViewController, UICollectionViewDelegate, UIColl
             //這裡是選中可進下一頁
             favCollectionView.deselectItem(at: indexPath, animated: true)
             if let DetailVC = self.storyboard?.instantiateViewController(identifier: "DetailVC") as? DetailViewController {
-                self.navigationController?.pushViewController(DetailVC, animated: true)
                 DetailVC.photoDetails3 = favoriteItems[indexPath.row]
+                DetailVC.modalPresentationStyle = .fullScreen
+                present(DetailVC, animated: true, completion: nil)
+                //self.navigationController?.pushViewController(DetailVC, animated: true)
+                
             }
             print("id: \(favoriteItems[indexPath.row].value(forKey: "id") as? String ?? "")")
             
@@ -184,16 +190,6 @@ class FavoriteViewController: UIViewController, UICollectionViewDelegate, UIColl
     }
     
     
-    //傳送資料到下一頁 DetailViewController
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if let destination = segue.destination as? DetailViewController {
-//            guard let row = favCollectionView?.indexPathsForSelectedItems?.first?.row else {return}
-//            destination.photoDetails3 = favoriteItems[row]
-//
-//        }
-//    }
-    
-    
     
 }
 
@@ -205,7 +201,7 @@ extension FavoriteViewController: CollectionViewWaterfallLayoutDelegate {
     func collectionView(_ collectionView: UICollectionView, layout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         let favorite = favoriteItems[indexPath.row]
         let size = CGSize(width: Int(favorite.width), height: Int(favorite.height))
-        print("\(indexPath.row) = \(size)")
+        //print("\(indexPath.row) = \(size)")
         return size
     }
     

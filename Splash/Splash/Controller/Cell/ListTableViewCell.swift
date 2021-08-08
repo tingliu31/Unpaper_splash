@@ -10,7 +10,7 @@ import JGProgressHUD
 
 
 
-protocol xxxDelegate: class {
+protocol ShowAlertDelegate: class {
 //    func test()
     func showAlert_(title: String, message: String, timeToDissapear: Int, on ViewController: UIViewController)
     
@@ -27,7 +27,7 @@ class ListTableViewCell: UITableViewCell {
     var completionHandler: ((String) -> Void)?
     var index: Int?
     var imageString: String?
-    weak var delegate: xxxDelegate?
+    weak var delegate: ShowAlertDelegate?
     var uiVC : ListViewController?
     var hud: JGProgressHUD?
     
@@ -55,7 +55,7 @@ class ListTableViewCell: UITableViewCell {
         print("Download Image successful!!")
         
         //self.hud?.dismiss(animated: true)
-        self.delegate?.showAlert_(title: "Save", message: "", timeToDissapear: 2, on: uiVC!)
+        self.delegate?.showAlert_(title: "Saved", message: "", timeToDissapear: 2, on: uiVC!)
 
     }
     

@@ -8,13 +8,8 @@ target 'Splash' do
   # Pods for Splash
 pod "UnsplasherSDK"
 pod 'SDWebImage'
-pod 'Lightbox'
-pod 'CHTCollectionViewWaterfallLayout/Swift'
 pod 'DZNEmptyDataSet'
 pod 'JGProgressHUD'
-pod 'SVProgressHUD'
-pod 'Loaf'
 pod 'CollectionViewWaterfallLayout'
-pod 'MBProgressHUD'
 
 end

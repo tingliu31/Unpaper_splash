@@ -11,6 +11,10 @@ class ImageViewController: UIViewController {
 
     @IBOutlet weak var imageView: UIImageView!
     
+    var uiVC : ViewController?
+    var depositList: [String] = []
+    var typeIndex: Int = 0
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,8 +23,6 @@ class ImageViewController: UIViewController {
             imageView.image = image
         }
     }
-    
-
     
 
 }

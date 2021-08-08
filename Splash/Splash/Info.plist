@@ -63,6 +63,6 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>xxxxxxx</string>
+	<string>Request to save photos in album.</string>
 </dict>
 </plist>
