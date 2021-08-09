@@ -93,17 +93,19 @@ class FavoriteViewController: UIViewController, UICollectionViewDelegate, UIColl
         }
         //刪除 收藏畫面的物件---------------------
         //問題： i.row是指畫面上的第幾筆, 要刪除的是被選中的那筆資料
-        for i in deletNeededIndexPaths {
-            //favoriteItems.remove(at: i.row)
-            context.delete(favoriteItems[i.row] as NSManagedObject)
-            favoriteItems.remove(at: i.row)
+        for i in deletNeededIndexPaths.sorted(by: { $0.item > $1.item }) {
+            
+            
+            context.delete(favoriteItems[i.item] as NSManagedObject)
+            favoriteItems.remove(at: i.item)
         }
-        dictionarySelectedIndexPath = [:]
+        self.favCollectionView.deleteItems(at: deletNeededIndexPaths)
+        dictionarySelectedIndexPath.removeAll()
 
         do {
             try context.save()
+
             DispatchQueue.main.async {
-                
                 self.favCollectionView.reloadData()
             }
         } catch let error as NSError {
@@ -177,6 +179,7 @@ class FavoriteViewController: UIViewController, UICollectionViewDelegate, UIColl
         //被選中的物件
         case .select:
             dictionarySelectedIndexPath[indexPath] = true //可選狀態
+
         }
     }
     

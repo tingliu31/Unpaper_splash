@@ -122,12 +122,13 @@ class SettingTableViewController: UITableViewController, MFMailComposeViewContro
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
+        //setupCellData()
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         setupCellData()
-        
-        
     }
     
     
@@ -153,7 +154,7 @@ class SettingTableViewController: UITableViewController, MFMailComposeViewContro
 
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //動畫
+        
         self.tableView.deselectRow(at: indexPath, animated: true)
         if indexPath.section == 0 {
             if indexPath.row == 0 {

@@ -60,11 +60,12 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
         let button = UIButton(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
         
         button.backgroundColor = .white
-        let image = UIImage(systemName: "clock", withConfiguration: UIImage.SymbolConfiguration(pointSize: 22, weight: .medium))!.withRenderingMode(.alwaysTemplate)
-        button.setImage(image, for: .normal)
+        let image_normal = UIImage(systemName: "clock", withConfiguration: UIImage.SymbolConfiguration(pointSize: 22, weight: .medium))
+        let image_highlighted = UIImage(systemName: "clock.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 22, weight: .medium))
+        button.setImage(image_normal, for: .normal)
+        button.setImage(image_highlighted, for: .highlighted)
         button.tintColor = .black
         button.setTitleColor(.black, for: .normal)
-        button.setTitleColor(.white, for: .selected)
         //Shadow
         button.layer.shadowRadius = 10
         button.layer.shadowOpacity = 0.4
@@ -73,8 +74,6 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
         button.layer.cornerRadius = 25
         return button
     }()
-    
-    
     
     
     //HomeButton
@@ -82,8 +81,10 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
         let button = UIButton(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
         
         button.backgroundColor = .white
-        let image = UIImage(systemName: "house", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .medium))!.withRenderingMode(.alwaysTemplate)
-        button.setImage(image, for: .normal)
+        let image_normal = UIImage(systemName: "house", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .medium))
+        let image_highlighted = UIImage(systemName: "house.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .medium))
+        button.setImage(image_normal, for: .normal)
+        button.setImage(image_highlighted, for: .highlighted)
         button.tintColor = .black
         button.setTitleColor(.black, for: .normal)
         button.setTitleColor(.white, for: .selected)
@@ -97,15 +98,15 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
     }()
     
     
-    
-    
     //DownloadButton
     @objc private let downloadBtn: UIButton = {
         let button = UIButton(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
         
         button.backgroundColor = .white
-        let image = UIImage(systemName: "square.and.arrow.down", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .medium))!.withRenderingMode(.alwaysTemplate)
-        button.setImage(image, for: .normal)
+        let image_normal = UIImage(systemName: "square.and.arrow.down", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .medium))
+        let image_highlighted = UIImage(systemName: "square.and.arrow.down.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .medium))
+        button.setImage(image_normal, for: .normal)
+        button.setImage(image_highlighted, for: .highlighted)
         button.tintColor = .black
         button.setTitleColor(.black, for: .normal)
         //Shadow
@@ -116,14 +117,17 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
         button.layer.cornerRadius = 25
         return button
     }()
+    
     
     //ShareButton
     @objc private let shareBtn: UIButton = {
         let button = UIButton(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
         
         button.backgroundColor = .white
-        let image = UIImage(systemName: "square.and.arrow.up", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .medium))!.withRenderingMode(.alwaysTemplate)
-        button.setImage(image, for: .normal)
+        let image_normal = UIImage(systemName: "square.and.arrow.up", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .medium))
+        let image_highlighted = UIImage(systemName: "square.and.arrow.up.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .medium))
+        button.setImage(image_normal, for: .normal)
+        button.setImage(image_highlighted, for: .highlighted)
         button.tintColor = .black
         button.setTitleColor(.black, for: .normal)
         //Shadow
@@ -134,16 +138,17 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
         button.layer.cornerRadius = 25
         return button
     }()
+    
     
     //SaveButton
     @objc private let saveBtn: UIButton = {
         let button = UIButton(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
         
         button.backgroundColor = .white
-        let image = UIImage(systemName: "heart", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .medium))!.withRenderingMode(.alwaysTemplate)
-        let image_ = UIImage(systemName: "heart.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .medium))?.withRenderingMode(.alwaysTemplate)
-        button.setImage(image, for: UIControl.State.normal)
-        button.setImage(image_, for: UIControl.State.selected)
+        let image_normal = UIImage(systemName: "heart", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .medium))!.withRenderingMode(.alwaysTemplate)
+        let image_highlighted = UIImage(systemName: "heart.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .medium))?.withRenderingMode(.alwaysTemplate)
+        button.setImage(image_normal, for: .normal)
+        button.setImage(image_highlighted, for: .highlighted)
         button.tintColor = .black
         button.setTitleColor(.black, for: .normal)
         //Shadow
@@ -154,7 +159,6 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
         button.layer.cornerRadius = 25
         return button
     }()
-    
     
 
     //AlertView
@@ -193,6 +197,13 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
         
         setupPhotoDetail()
         
+        //MARK: SwipeGesture
+        let swipe = UISwipeGestureRecognizer(target: self, action: #selector(closeBtnPressed))
+        swipe.direction = .down
+        self.imageView.isUserInteractionEnabled = true
+        self.imageView.addGestureRecognizer(swipe)
+        
+        
         //MARK: TimeImage
         let timeImage = UIImage(named: "time_")
         timewImageView = UIImageView(image: timeImage)
@@ -207,9 +218,6 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
         
         
         //MARK: ScrollView
-//        let vWidth = self.view.frame.width
-//        let vHeight = self.view.frame.height
-//        scrollView = UIScrollView()
         imageView.contentMode = .scaleAspectFit
         scrollView = UIScrollView(frame: self.view.frame)
         scrollView.backgroundColor = UIColor.black
@@ -218,54 +226,76 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
         scrollView.addSubview(imageView)
         view.addSubview(scrollView)
         scrollView.delegate = self
-//        scrollView.frame = CGRect(x: 0, y: 0, width: vWidth, height: vHeight)
-//        scrollView.alwaysBounceVertical = false
-//        scrollView.alwaysBounceHorizontal = false
-//        scrollView.showsVerticalScrollIndicator = true
-//        scrollView.flashScrollIndicators()
-//        scrollView.minimumZoomScale = 1.0
-//        scrollView.maximumZoomScale = 2.0
-        
-        
-        //MARK: TapGesture
-//        let doubleTapGest = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTapScrollView(recognizer:)))
-//        doubleTapGest.numberOfTapsRequired = 2
-//        scrollView.addGestureRecognizer(doubleTapGest)
-//        self.view.addSubview(scrollView)
-//        self.imageView.clipsToBounds = false
-//        scrollView.addSubview(imageView)
         
         
         //MARK: DownloadBtn
+        downloadBtn.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(downloadBtn)
+        downloadBtn.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        downloadBtn.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        downloadBtn.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -30).isActive = true
+        downloadBtn.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor, constant: -20).isActive = true
+        
         downloadBtn.addTarget(self, action: #selector(downloadImage), for: .touchUpInside)
         
         
         //MARK: ShareBtn
+        shareBtn.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(shareBtn)
+        shareBtn.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        shareBtn.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        shareBtn.bottomAnchor.constraint(equalTo: self.downloadBtn.topAnchor, constant: -15).isActive = true
+        shareBtn.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor, constant: -20).isActive = true
         shareBtn.addTarget(self, action: #selector(share), for: .touchUpInside)
         
+        
         //MARK: SaveBtn
+        saveBtn.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(saveBtn)
-        let image_ = UIImage(systemName: "heart.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .medium))?.withRenderingMode(.alwaysTemplate)
-        saveBtn.setImage(image_, for: UIControl.State.selected)
+        saveBtn.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        saveBtn.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        saveBtn.bottomAnchor.constraint(equalTo: self.shareBtn.topAnchor, constant: -15).isActive = true
+        saveBtn.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor, constant: -20).isActive = true
         saveBtn.addTarget(self, action: #selector(addToCollection), for: .touchUpInside)
         
+        
         //MARK: infoBtn
+        infoBtn.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(infoBtn)
+        infoBtn.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        infoBtn.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        infoBtn.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -20).isActive = true
+        infoBtn.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor, constant: 20).isActive = true
         infoBtn.addTarget(self, action: #selector(presntImageInfoPage), for: .touchUpInside)
         
+        
         //MARK: homeBtn
+        homeBtn.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(homeBtn)
+        homeBtn.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        homeBtn.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        homeBtn.bottomAnchor.constraint(equalTo: self.saveBtn.topAnchor, constant: -15).isActive = true
+        homeBtn.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor, constant: -20).isActive = true
         homeBtn.addTarget(self, action: #selector(onClickHomeBtn), for: .touchUpInside)
         
         //MARK: timeBtn
+        timeBtn.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(timeBtn)
+        timeBtn.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        timeBtn.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        timeBtn.bottomAnchor.constraint(equalTo: self.homeBtn.topAnchor, constant: -15).isActive = true
+        timeBtn.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor, constant: -20).isActive = true
         timeBtn.addTarget(self, action: #selector(onClickTimeBtn), for: .touchUpInside)
         
         //MARK: closeBtn
+        closeBtn.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(closeBtn)
+        closeBtn.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        closeBtn.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        closeBtn.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
+        closeBtn.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor, constant: -20).isActive = true
         closeBtn.addTarget(self, action: #selector(closeBtnPressed), for: .touchUpInside)
+        
         
         updateZoomSizeFor(size: view.bounds.size)
         setupGestureRecognizer()
@@ -286,38 +316,6 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
     }
     
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        
-    }
-    
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        downloadBtn.frame = CGRect(x: view.frame.size.width - 70,
-                                   y: view.frame.size.height - 120,
-                                   width: 50, height: 50)
-        
-        shareBtn.frame = CGRect(x: view.frame.size.width - 70,
-                                y: view.frame.size.height - 185,
-                                width: 50, height: 50)
-        
-        saveBtn.frame = CGRect(x: view.frame.size.width - 70, y: view.frame.size.height - 250, width: 50, height: 50)
-        
-        homeBtn.frame = CGRect(x: view.frame.size.width - 70, y: view.frame.size.height - 315, width: 50, height: 50)
-        
-        timeBtn.frame = CGRect(x: view.frame.size.width - 70, y: view.frame.size.height - 380, width: 50, height: 50)
-        
-        closeBtn.frame = CGRect(x: view.frame.size.width - 60, y: view.frame.size.height - 830, width: 30, height: 30)
-        
-        infoBtn.frame = CGRect(x: view.frame.size.width - 380,
-                               y: view.frame.size.height - 120,
-                               width: 50, height: 50)
-    }
-    
-    
-    
     
     
     func setupPhotoDetail() {
@@ -453,18 +451,21 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
     @objc func downloadImage(_ sender: Any) {
         
         //From ListVC
-        if let urlString = photoDetails?.urls?.raw {
+        if let urlString = photoDetails?.urls?.raw{
             self.saveImageToAlbum(image: urlString)
+            self.sendRequestForDownload(urlString: (self.photoDetails?.links?.download_location)!)
         }
         
         //From SearchVC
         if let urlString = photoDetails2?.urls?.raw {
             self.saveImageToAlbum(image: urlString)
+            self.sendRequestForDownload(urlString: (self.photoDetails2?.links?.download_location)!)
         }
         
         //From FavVC
         if let urlString = photoDetails3?.value(forKey: "imageURL") as? String {
             self.saveImageToAlbum(image: urlString)
+            self.sendRequestForDownload(urlString: (self.photoDetails3?.value(forKey: "image_download" ))! as! String)
         }
     }
     
@@ -475,7 +476,6 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
             let data = try? Data(contentsOf: url)
             let savedImage = UIImage(data: data!)
             UIImageWriteToSavedPhotosAlbum(savedImage!, nil, nil, nil)
-            //Loaf("Image successfully saved to your photos!", state: .success, location: .bottom, presentingDirection: .vertical, dismissingDirection: .vertical, sender: self).show()
             self.showAlert_(title: "Saved", message: "", timeToDissapear: 2, on: self)
         }
     }
@@ -487,30 +487,38 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
             self.saveBtn.isSelected = false
         } else {
             self.saveBtn.isSelected = true
-        //From ListVC
-        if let url = photoDetails?.urls?.regular {
-            let urlString = "\(url)"
-            let width = photoDetails?.width
-            let height = photoDetails?.height
-            let id = (photoDetails?.id)!
-            self.saveToCoreData(imageURL: urlString, width: width ?? 0, height: height ?? 0, id: id)
+            //From ListVC
+            if let url = photoDetails?.urls?.regular, let downloadRequset = photoDetails?.links?.download_location  {
+                let urlString = "\(url)"
+                let image_download = "\(downloadRequset)"
+                let width = photoDetails?.width
+                let height = photoDetails?.height
+                let id = (photoDetails?.id)!
+                let name = (photoDetails?.user?.name)!
+                let userImage = (photoDetails?.user?.profile_image?.medium)!
+                let website = (photoDetails?.user?.links?.html)!
+                self.saveToCoreData(imageURL: urlString, width: width ?? 0, height: height ?? 0, id: id, image_download: image_download, name: name, userImage: userImage, website: website)
+            }
+            
+            //From SearchVC
+            if let url = photoDetails2?.urls?.regular, let downloadRequset = photoDetails2?.links?.download_location {
+                let urlString = "\(url)"
+                let image_download = "\(downloadRequset)"
+                let width = photoDetails2?.width
+                let height = photoDetails2?.height
+                let id = (photoDetails2?.id)!
+                let name = (photoDetails2?.user?.name)!
+                let userImage = (photoDetails2?.user?.profile_image?.medium)!
+                let website = (photoDetails2?.user?.links?.html)!
+                print(website)
+                self.saveToCoreData(imageURL: urlString, width: width ?? 0, height: height ?? 0, id: id, image_download: image_download, name: name, userImage: userImage, website: website)
+            }
         }
-        
-        //From SearchVC
-        if let url = photoDetails2?.urls?.regular {
-            let urlString = "\(url)"
-            let width = photoDetails2?.width
-            let height = photoDetails2?.height
-            let id = (photoDetails2?.id)!
-            self.saveToCoreData(imageURL: urlString, width: width ?? 0, height: height ?? 0, id: id)
-        }
-        }
-        
         self.showAlert_(title: "Saved", message: "", timeToDissapear: 2, on: self)
     }
     
     
-    func saveToCoreData(imageURL: String, width: Int, height: Int, id: String) {
+    func saveToCoreData(imageURL: String, width: Int, height: Int, id: String, image_download: String, name: String, userImage: String, website: String) {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
         let managedContext = appDelegate.persistentContainer.viewContext
         
@@ -520,6 +528,10 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
         unsplash.setValue(width, forKey: "width")
         unsplash.setValue(height, forKey: "height")
         unsplash.setValue(id, forKey: "id")
+        unsplash.setValue(image_download, forKey: "image_download")
+        unsplash.setValue(name, forKey: "name")
+        unsplash.setValue(userImage, forKey: "userImage")
+        unsplash.setValue(website, forKey: "website")
         do {
             try managedContext.save()
             print("Data Saved Successfully!")
@@ -697,6 +709,19 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
             scrollView.setZoomScale(scrollView.maximumZoomScale, animated: true)
         }
     }
+    
+    
+    
+    
+    func sendRequestForDownload(urlString: String) {
+        //let urlString = self.photoDetails?.links?.download_location
+        if let url = URL(string: urlString) {
+            let task = URLSession.shared.dataTask(with: url)
+            print("Send Request Successful!")
+            task.resume()
+        }
+    }
+    
     
     
 }

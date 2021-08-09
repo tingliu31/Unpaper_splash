@@ -8,8 +8,9 @@
 import UIKit
 import CoreData
 import MapKit
+import SafariServices
 
-class PresentDetailViewController: UIViewController, MKMapViewDelegate {
+class PresentDetailViewController: UIViewController, MKMapViewDelegate, SFSafariViewControllerDelegate {
 
     
     var imageInfo: DetailData?
@@ -26,7 +27,6 @@ class PresentDetailViewController: UIViewController, MKMapViewDelegate {
     var myMapView :MKMapView!
     let annotation = MKPointAnnotation()
     
-    var aa: PresentationController?
     
     
     @IBOutlet weak var slideView: UIView!
@@ -39,25 +39,38 @@ class PresentDetailViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var speedLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var cityLabel: UILabel!
+    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var nameLabel: UILabel!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        setUpImage()
         getImageEXIF()
-        //setUpImageDetails()
+        
         
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(panGestureRecognizerAction))
         view.addGestureRecognizer(panGesture)
         //self.slideView.roundCorners(.allCorners, radius: 5)
         
-        
+        /*
         myMapView = MKMapView(frame: CGRect(x: 40, y:410 , width: self.view.frame.width - 80, height: 150))
         myMapView.delegate = self
         myMapView.mapType = .standard
         myMapView.isZoomEnabled = true
         view.addSubview(myMapView)
         myMapView.isHidden = true
+        */
+        
+        self.cityLabel.isUserInteractionEnabled = true
+        let tap = UITapGestureRecognizer(target: self, action: #selector(navigateToMap))
+        self.cityLabel.addGestureRecognizer(tap)
+        
+        
+        self.imageView.isUserInteractionEnabled = true
+        let tap_ = UITapGestureRecognizer(target: self, action: #selector(navigateToWebsite))
+        self.imageView.addGestureRecognizer(tap_)
         
     }
     
@@ -70,6 +83,46 @@ class PresentDetailViewController: UIViewController, MKMapViewDelegate {
     }
 
 
+    @objc func navigateToMap() {
+        if ( CLLocationCoordinate2DIsValid(self.annotation.coordinate)) {
+            //self.cityLabel.textColor = .blue
+            let placemark = MKPlacemark(coordinate: self.annotation.coordinate)
+            let item = MKMapItem(placemark: placemark)
+            item.name = self.imageInfo?.location?.name
+            item.openInMaps(launchOptions: nil)
+        }
+    }
+    
+    
+    @objc func navigateToWebsite() {
+        
+        //From List
+        if let websiteString = photoDetails?.user?.links?.html,
+           let url = URL(string: websiteString) {
+            let safari = SFSafariViewController(url: url)
+            safari.delegate = self
+            self.present(safari, animated: true, completion: nil)
+        } else if let websiteString = photoDetails2?.user?.links?.html,
+                  let url = URL(string: websiteString) {
+            //From Search
+            let safari = SFSafariViewController(url: url)
+            safari.delegate = self
+            self.present(safari, animated: true, completion: nil)
+        } else {
+            //From Fav
+            if let websiteString = photoDetails3?.value(forKey: "website") as? String,
+               let url = URL(string: websiteString) {
+                let safari = SFSafariViewController(url: url)
+                safari.delegate = self
+                self.present(safari, animated: true, completion: nil)
+            }
+            
+            
+        }
+        
+    }
+    
+    
 
     @objc func panGestureRecognizerAction(sender: UIPanGestureRecognizer) {
         let translation = sender.translation(in: view)
@@ -95,16 +148,29 @@ class PresentDetailViewController: UIViewController, MKMapViewDelegate {
     
     
     
-    func setUpImageDetails() {
+    func setUpImage() {
         
-        self.dimensionsLabel.text = String((imageInfo?.width)!) + "x" + String((imageInfo?.height)!)
-        self.makeLabel.text = imageInfo?.exif?.make ?? "_"
-        self.modelLable.text = imageInfo?.exif?.model ?? "_"
-        self.isoLabel.text = String(imageInfo?.exif?.model ?? "_")
-        self.lengthLabel.text = imageInfo?.exif?.focalLength ?? "_"
-        self.apertureLabel.text = imageInfo?.exif?.aperture ?? "_"
-        self.speedLabel.text = imageInfo?.exif?.exposureTime ?? "_"
-        self.timeLabel.text = imageInfo?.created_at ?? "_"
+        //From List
+        if let imageString = self.photoDetails?.user?.profile_image?.medium, let url = URL(string: imageString) {
+            self.imageView.sd_setImage(with: url, completed: nil)
+            self.imageView.layer.cornerRadius = 25
+            self.nameLabel.text = self.photoDetails?.user?.name
+        } else if let imageString = self.photoDetails2?.user?.profile_image?.medium, let url = URL(string: imageString) {
+            //From Search
+            self.imageView.sd_setImage(with: url, completed: nil)
+            self.imageView.layer.cornerRadius = 25
+            self.nameLabel.text = self.photoDetails2?.user?.name
+        } else {
+            //From Fav
+            if let imageString = self.photoDetails3?.value(forKey: "userImage") as? String,
+               let url = URL(string: imageString) {
+                self.imageView.sd_setImage(with: url, completed: nil)
+                self.imageView.layer.cornerRadius = 25
+                self.nameLabel.text = self.photoDetails3?.value(forKey: "name") as? String
+            }
+        }
+        
+
     }
     
     
@@ -146,7 +212,7 @@ class PresentDetailViewController: UIViewController, MKMapViewDelegate {
             self.id = imageID
         }
         
-        
+        print("-------------------------")
         let baseURL = "https://api.unsplash.com/photos/\(self.id ?? "")?client_id=ujAYBJVDy9u57y3nJsLVr-byAW6bRoCXuLAjnd0OANo"
         
         print(baseURL)
@@ -160,8 +226,13 @@ class PresentDetailViewController: UIViewController, MKMapViewDelegate {
             do{
                 let jasonResult = try JSONDecoder().decode(DetailData.self, from: datailData)
                 print("Got Detail jsonResult !!!")
+                print("-------------------------")
                 self.imageInfo = jasonResult
                 DispatchQueue.main.async {
+                    
+                    //if let imageString = self.imageInfo
+                    
+                    
                     self.dimensionsLabel.text = String((self.imageInfo?.width)!) + " x " + String((self.imageInfo?.height)!)
                     self.makeLabel.text = self.imageInfo?.exif?.make ?? "_"
                     self.modelLable.text = self.imageInfo?.exif?.model ?? "_"
@@ -193,22 +264,20 @@ class PresentDetailViewController: UIViewController, MKMapViewDelegate {
                     
                     
                     //Location
-                    if self.imageInfo?.location?.city != nil {
-                        self.cityLabel.text = self.imageInfo?.location?.city
-                        self.annotation.title = self.imageInfo?.location?.city
+                    if self.imageInfo?.location?.title != nil {
+                        self.cityLabel.text = self.imageInfo?.location?.title
+                        print("title: \(String(describing: self.imageInfo?.location?.title))")
+                        self.annotation.title = self.imageInfo?.location?.title
                     } else {
                         self.cityLabel.text = "_"
                     }
                     
-                    if self.imageInfo?.location?.country != nil && self.imageInfo?.location?.city != nil {
-                        self.cityLabel.text = (self.imageInfo?.location?.city)! + ", " + (self.imageInfo?.location?.country)!
-                        self.annotation.subtitle = self.imageInfo?.location?.country
-                    } else {
-                        self.cityLabel.text = "_"
-                    }
                     
                     //地圖myMapView
                     if self.imageInfo?.location?.position?.latitude != nil && self.imageInfo?.location?.position?.longitude != nil {
+                        //底線
+                        self.cityLabel.underline()
+                        //self.myMapView.isHidden = false
                         let latitude = self.imageInfo?.location?.position?.latitude
                         let longitude = self.imageInfo?.location?.position?.longitude
                         print("latitude:", String(latitude!) + ", longitude:" +  String(longitude!)  )
@@ -216,14 +285,15 @@ class PresentDetailViewController: UIViewController, MKMapViewDelegate {
                         //設置位置
                         self.annotation.coordinate = CLLocationCoordinate2D(latitude: latitude!, longitude: longitude!)
                         
-                        self.myMapView.setCenter(self.annotation.coordinate, animated: true)
-                        self.myMapView.setRegion(MKCoordinateRegion(center: self.annotation.coordinate, latitudinalMeters: 200, longitudinalMeters: 200), animated: true)
-                        self.myMapView.addAnnotation(self.annotation)
+//                        self.annotation.coordinate = CLLocationCoordinate2D(latitude: latitude!, longitude: longitude!)
+//                                                let placemark = MKPlacemark(coordinate: self.annotation.coordinate)
+//                                                let item = MKMapItem(placemark: placemark)
+//                                                item.name = self.imageInfo?.location?.city
+//                                                item.openInMaps(launchOptions: nil)
                         
-                        
-                        self.myMapView.isHidden = false
-                        
-                        self.view.frame = CGRect(x: 0, y: self.view.frame.height, width: self.view.frame.width, height: 800)
+//                        self.myMapView.setCenter(self.annotation.coordinate, animated: true)
+//                        self.myMapView.setRegion(MKCoordinateRegion(center: self.annotation.coordinate, latitudinalMeters: 200, longitudinalMeters: 200), animated: true)
+//                        self.myMapView.addAnnotation(self.annotation)
                         
                     }
                 }
@@ -235,8 +305,16 @@ class PresentDetailViewController: UIViewController, MKMapViewDelegate {
     }
     
     
-    
-    
-    
-    
+}
+
+
+
+extension UILabel {
+    func underline() {
+        if let textUnwrapped = self.text {
+            let underlineAttribute = [NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue]
+            let underlineAttributedString = NSAttributedString(string: textUnwrapped, attributes: underlineAttribute)
+            self.attributedText = underlineAttributedString
+        }
+    }
 }

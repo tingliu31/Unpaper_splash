@@ -3,10 +3,14 @@
     <entity name="Splash" representedClassName="Splash" syncable="YES" codeGenerationType="class">
         <attribute name="height" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="image_download" optional="YES" attributeType="String"/>
         <attribute name="imageURL" optional="YES" attributeType="String"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="userImage" optional="YES" attributeType="String"/>
+        <attribute name="website" optional="YES" attributeType="String"/>
         <attribute name="width" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
     </entity>
     <elements>
-        <element name="Splash" positionX="-63" positionY="-18" width="128" height="89"/>
+        <element name="Splash" positionX="-63" positionY="-18" width="128" height="149"/>
     </elements>
 </model>

@@ -52,7 +52,7 @@ struct User : Codable {
     let location : String?
     let name : String?
     let portfolioUrl : String?
-    let profileImage : ProfileImage?
+    let profile_image : ProfileImage?
     let social : Social?
     let totalCollections : Int?
     let totalLikes : Int?
@@ -101,7 +101,7 @@ struct Category : Codable {
 struct Link : Codable {
 
     let download : String?
-    let downloadLocation : String?
+    let download_location : String?
     let html : String?
     let self_ : String? //
     let followers : String?
