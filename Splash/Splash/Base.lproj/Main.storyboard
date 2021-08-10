@@ -12,7 +12,7 @@
         <!--Seacher Home View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="SeacherHomeViewController" customModule="Splash" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="SeacherHomeViewController" customModule="Unpaper" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -93,7 +93,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="selectedImageTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="selectedImageTintColor" systemColor="labelColor"/>
                     </tabBar>
                     <connections>
                         <segue destination="iZp-hS-TCD" kind="relationship" relationship="viewControllers" id="bSj-gs-tEn"/>
@@ -109,7 +109,7 @@
         <!--Collection-->
         <scene sceneID="vde-78-1UN">
             <objects>
-                <viewController id="tQl-HD-ZgO" customClass="FavoriteViewController" customModule="Splash" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="tQl-HD-ZgO" customClass="FavoriteViewController" customModule="Unpaper" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="jav-IS-sdv">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -124,7 +124,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="favoriteCell" id="SzW-vv-7dM" customClass="FavoriteCollectionViewCell" customModule="Splash" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="favoriteCell" id="SzW-vv-7dM" customClass="FavoriteCollectionViewCell" customModule="Unpaper" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="OIY-nT-NKH">
@@ -140,7 +140,7 @@
                                                 </view>
                                                 <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="UgR-LO-V41">
                                                     <rect key="frame" x="88" y="88.5" width="30" height="29"/>
-                                                    <color key="tintColor" systemColor="systemBackgroundColor"/>
+                                                    <color key="tintColor" systemColor="labelColor"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="FWC-Ar-t4f"/>
                                                         <constraint firstAttribute="width" constant="30" id="v6s-MT-NN6"/>
@@ -199,7 +199,7 @@
         <!--About-->
         <scene sceneID="kfv-SC-XfV">
             <objects>
-                <tableViewController id="sE0-Nd-Au6" customClass="SettingTableViewController" customModule="Splash" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="sE0-Nd-Au6" customClass="SettingTableViewController" customModule="Unpaper" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="XPh-25-xN8">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -336,7 +336,7 @@
         <!--List View Controller-->
         <scene sceneID="Zem-45-jpL">
             <objects>
-                <viewController id="oiw-qb-sce" customClass="ListViewController" customModule="Splash" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="oiw-qb-sce" customClass="ListViewController" customModule="Unpaper" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="STh-3Q-i2q">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -345,7 +345,7 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="808"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="tableViewCell" rowHeight="302" id="7F7-Xy-rvv" customClass="ListTableViewCell" customModule="Splash" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="tableViewCell" rowHeight="302" id="7F7-Xy-rvv" customClass="ListTableViewCell" customModule="Unpaper" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="302"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="7F7-Xy-rvv" id="71L-jn-Kmg">
@@ -413,7 +413,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="0LA-nx-WVa">
                         <barButtonItem key="rightBarButtonItem" title="Item" image="arrow.clockwise" catalog="system" id="a9L-fi-b2u">
-                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="tintColor" systemColor="labelColor"/>
                             <connections>
                                 <action selector="refreshData:" destination="oiw-qb-sce" id="mQb-sj-xJS"/>
                             </connections>
@@ -431,7 +431,7 @@
         <!--Detail View Controller-->
         <scene sceneID="zka-hb-JhA">
             <objects>
-                <viewController storyboardIdentifier="DetailVC" modalPresentationStyle="fullScreen" id="bIZ-tN-0UF" customClass="DetailViewController" customModule="Splash" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DetailVC" modalPresentationStyle="fullScreen" id="bIZ-tN-0UF" customClass="DetailViewController" customModule="Unpaper" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ReY-Bf-vGk">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -446,7 +446,7 @@
         <!--Seacher Image View Controller-->
         <scene sceneID="eGq-2p-MRs">
             <objects>
-                <viewController id="wo9-2B-FFa" customClass="SeacherImageViewController" customModule="Splash" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="wo9-2B-FFa" customClass="SeacherImageViewController" customModule="Unpaper" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bYp-Ro-qup">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="778"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -461,7 +461,7 @@
         <!--Search People View Controller-->
         <scene sceneID="Nxc-0V-lKl">
             <objects>
-                <viewController id="kk9-Mh-kx8" customClass="SearchPeopleViewController" customModule="Splash" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="kk9-Mh-kx8" customClass="SearchPeopleViewController" customModule="Unpaper" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="eDD-9C-umD">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="778"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -470,7 +470,7 @@
                                 <rect key="frame" x="0.0" y="109" width="414" height="669"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="100" id="u79-9Q-7cr" customClass="SearchPeopleTableViewCell" customModule="Splash" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="100" id="u79-9Q-7cr" customClass="SearchPeopleTableViewCell" customModule="Unpaper" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="u79-9Q-7cr" id="4gG-VM-4vw">
@@ -526,50 +526,10 @@
             </objects>
             <point key="canvasLocation" x="2007" y="2237"/>
         </scene>
-        <!--Collection View Controller-->
-        <scene sceneID="dP0-sM-mp5">
-            <objects>
-                <collectionViewController id="4vQ-gY-Yfp" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="dBa-2d-Sjo">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="qBD-Dg-S7u">
-                            <size key="itemSize" width="110" height="128"/>
-                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                        </collectionViewFlowLayout>
-                        <scrollView key="backgroundView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" pagingEnabled="YES" id="dfA-yz-OkU">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <viewLayoutGuide key="contentLayoutGuide" id="t09-H6-d51"/>
-                            <viewLayoutGuide key="frameLayoutGuide" id="QxX-si-GBC"/>
-                        </scrollView>
-                        <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="5sY-Pg-d1O">
-                                <rect key="frame" x="0.0" y="0.0" width="110" height="128"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="iQB-or-Stf">
-                                    <rect key="frame" x="0.0" y="0.0" width="110" height="128"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </collectionViewCellContentView>
-                            </collectionViewCell>
-                        </cells>
-                        <connections>
-                            <outlet property="dataSource" destination="4vQ-gY-Yfp" id="oDn-69-Wd8"/>
-                            <outlet property="delegate" destination="4vQ-gY-Yfp" id="US1-kS-U9y"/>
-                        </connections>
-                    </collectionView>
-                </collectionViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="nH7-XF-0DS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-288" y="3273"/>
-        </scene>
         <!--View Controller-->
         <scene sceneID="MNk-Pd-P0H">
             <objects>
-                <viewController storyboardIdentifier="sb1" id="T7j-Mh-HGj" customClass="ViewController" customModule="Splash" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="sb1" id="T7j-Mh-HGj" customClass="ViewController" customModule="Unpaper" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="wFP-eO-6uF">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -580,17 +540,16 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RaP-eK-eG5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1397.1014492753625" y="4112.2767857142853"/>
+            <point key="canvasLocation" x="638" y="3283"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="1QD-c2-Kb8">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="LKI-m7-4pb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="iZp-hS-TCD" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" image="photo" catalog="system" selectedImage="photo.fill" id="jpl-zD-Kmf">
                         <inset key="imageInsets" minX="0.0" minY="10" maxX="0.0" maxY="-10"/>
                         <inset key="largeContentSizeImageInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="1"/>
-                        <color key="badgeColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="badgeColor" systemColor="labelColor"/>
                     </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="4Pg-kj-LND">
@@ -602,6 +561,7 @@
                         <segue destination="oiw-qb-sce" kind="relationship" relationship="rootViewController" id="NGy-8a-Vvm"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LKI-m7-4pb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="241" y="736"/>
         </scene>
@@ -611,7 +571,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="LQ4-f5-KHa" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" image="heart" catalog="system" selectedImage="heart.fill" id="ftG-cS-bXf">
                         <inset key="imageInsets" minX="0.0" minY="10" maxX="0.0" maxY="-10"/>
-                        <color key="badgeColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="badgeColor" systemColor="labelColor"/>
                     </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="e36-9d-zZp">
@@ -633,7 +593,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="iAi-cC-OQN" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" image="magnifyingglass" catalog="system" id="GxJ-zd-arW">
                         <inset key="imageInsets" minX="0.0" minY="10" maxX="0.0" maxY="-10"/>
-                        <color key="badgeColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="badgeColor" systemColor="labelColor"/>
                     </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="LDU-TY-8Ef">
@@ -652,7 +612,7 @@
         <!--Image View Controller-->
         <scene sceneID="qoT-4l-YvZ">
             <objects>
-                <viewController storyboardIdentifier="sb2" id="eaV-9T-3pR" customClass="ImageViewController" customModule="Splash" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="sb2" id="eaV-9T-3pR" customClass="ImageViewController" customModule="Unpaper" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="loI-Of-rfE">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -679,6 +639,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="jsd-E5-L1r" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" image="line.horizontal.3.decrease" catalog="system" id="Tak-63-fUi">
                         <inset key="imageInsets" minX="0.0" minY="10" maxX="0.0" maxY="-10"/>
+                        <color key="badgeColor" systemColor="labelColor"/>
                     </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="L8G-QI-rod">
@@ -697,7 +658,6 @@
         <!--Navigation Controller-->
         <scene sceneID="aJk-zj-brY">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="OIH-0L-y2i" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="gJk-tB-tII" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="NdU-xu-b00">
@@ -709,8 +669,9 @@
                         <segue destination="T7j-Mh-HGj" kind="relationship" relationship="rootViewController" id="tGZ-By-rlo"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OIH-0L-y2i" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="486.95652173913049" y="4111.6071428571431"/>
+            <point key="canvasLocation" x="-271" y="3283"/>
         </scene>
     </scenes>
     <resources>
@@ -719,7 +680,7 @@
         <image name="checkmark.circle" catalog="system" width="128" height="121"/>
         <image name="heart" catalog="system" width="128" height="109"/>
         <image name="heart.fill" catalog="system" width="128" height="109"/>
-        <image name="iphone" width="300" height="649.5"/>
+        <image name="iphone" width="300" height="649.66668701171875"/>
         <image name="line.horizontal.3.decrease" catalog="system" width="128" height="73"/>
         <image name="logo" width="1025" height="1024"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>

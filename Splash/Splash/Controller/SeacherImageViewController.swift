@@ -126,7 +126,7 @@ class SeacherImageViewController: UIViewController, UISearchBarDelegate, UIColle
     // GetDataFromJson
     func getSearchData(query: String, page: Int) {
        
-        let urlString = "https://api.unsplash.com/search/photos?page=\(page)&per_page=30&query=\(query)&client_id=W3yce0SFSW1yllKPYe6gOInwIjp8DLBJGc8UE9Aweb4"
+        let urlString = "https://api.unsplash.com/search/photos?page=\(page)&per_page=30&query=\(query)&client_id=ujAYBJVDy9u57y3nJsLVr-byAW6bRoCXuLAjnd0OANo"
         print(urlString)
         guard let url = URL(string: urlString) else {
             return

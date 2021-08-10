@@ -181,8 +181,8 @@ class SettingTableViewController: UITableViewController, MFMailComposeViewContro
         let mailComposeVC = MFMailComposeViewController()
         mailComposeVC.mailComposeDelegate = self
         // 設定郵件地址、主題及正文/ 系統版本systemVersion 裝置型號deviceModel
-        mailComposeVC.setToRecipients(["<NUGRU31@gmail.com>"])
-        mailComposeVC.setSubject("Splasher User Feedback")
+        mailComposeVC.setToRecipients(["<Unpaper.official@gmail.com>"])
+        mailComposeVC.setSubject("Unpaper User Feedback")
         mailComposeVC.setMessageBody("\n\n\n System Version: \(systemVersion)\n Device Model: \(self.modelName)", isHTML: false)
         return mailComposeVC
     }

@@ -73,7 +73,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     func updateUI() {
         
         self.navigationController?.navigationBar.prefersLargeTitles = true
-        self.navigationItem.title = "Splasher"
+        self.navigationItem.title = "Unpaper"
         self.navigationController?.navigationBar.isTranslucent = true
         self.navigationController?.navigationBar.alpha = 0.8
         self.tableView.delegate = self

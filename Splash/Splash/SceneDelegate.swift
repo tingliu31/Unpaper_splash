@@ -17,6 +17,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let _ = (scene as? UIWindowScene) else { return }
+        // 这里就简单介绍一下，实际项目中，如果是iOS应用这么写没问题，但是对于iPadOS应用还需要判断scene的状态是否激活
+//        let scene = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
+//        scene?.window?.overrideUserInterfaceStyle = .light
+
+
+        
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

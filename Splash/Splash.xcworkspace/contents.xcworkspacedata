@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:Splash.xcodeproj">
+      location = "group:/Users/student/Desktop/Splash/Splash/Unpaper.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">

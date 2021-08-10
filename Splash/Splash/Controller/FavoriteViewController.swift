@@ -31,13 +31,13 @@ class FavoriteViewController: UIViewController, UICollectionViewDelegate, UIColl
                 dictionarySelectedIndexPath.removeAll()
                 
                 selectBarBtn.title = "Select"
-                selectBarBtn.tintColor = .black
+                selectBarBtn.tintColor = .label
                 navigationItem.leftBarButtonItem = nil
                 favCollectionView.allowsMultipleSelection = false
             case .select:
                 selectBarBtn.title = "Cancel"
                 navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(didDeleteButtonClicked(_:)))
-                navigationItem.leftBarButtonItem?.tintColor = .black
+                navigationItem.leftBarButtonItem?.tintColor = .label
                 favCollectionView.allowsMultipleSelection = true
             }
         }
@@ -61,7 +61,7 @@ class FavoriteViewController: UIViewController, UICollectionViewDelegate, UIColl
         super.viewDidLoad()
         
         tabBarItem.imageInsets = UIEdgeInsets(top: 10, left: 0, bottom: -10, right: 0)
-        selectBarBtn.tintColor = .black
+        selectBarBtn.tintColor = .label
         favCollectionView.delegate = self
         favCollectionView.dataSource = self
         favCollectionView.emptyDataSetSource = self
