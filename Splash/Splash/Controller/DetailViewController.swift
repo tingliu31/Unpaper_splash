@@ -661,10 +661,19 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 //        homeImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 80).isActive = true
 //        homeImageView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0).isActive = true
 //        homeImageView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0).isActive = true
-        homeImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0).isActive = true
-        homeImageView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0).isActive = true
-        homeImageView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0).isActive = true
-        homeImageView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
+        if targetView!.frame.width < 400 {
+            //homeImageView.widthAnchor.constraint(equalToConstant: homeImageView.frame.width + 120).isActive = true
+            //homeImageView.heightAnchor.constraint(equalToConstant: 550).isActive = true
+            //homeImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0).isActive = true
+            homeImageView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0).isActive = true
+            homeImageView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0).isActive = true
+        } else {
+            homeImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0).isActive = true
+            homeImageView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0).isActive = true
+            homeImageView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0).isActive = true
+            homeImageView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
+        }
+        
         
         print("homeImageView: \(homeImageView.frame)")
         

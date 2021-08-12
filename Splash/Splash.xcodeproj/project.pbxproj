@@ -46,7 +46,7 @@
 		3F069B9D26B986540064D88A /* ImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 		3F069BA226BAD0AD0064D88A /* SettingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewController.swift; sourceTree = "<group>"; };
 		3F069BA526BAD2740064D88A /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
-		3F2482B426A8872D00C26F47 /* Unpaper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Unpaper.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3F2482B426A8872D00C26F47 /* Splash.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Splash.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F2482B726A8872D00C26F47 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3F2482B926A8872D00C26F47 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		3F2482BB26A8872D00C26F47 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -115,7 +115,7 @@
 		3F2482B526A8872D00C26F47 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3F2482B426A8872D00C26F47 /* Unpaper.app */,
+				3F2482B426A8872D00C26F47 /* Splash.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -194,9 +194,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		3F2482B326A8872D00C26F47 /* Unpaper */ = {
+		3F2482B326A8872D00C26F47 /* Splash */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3F2482C826A8872F00C26F47 /* Build configuration list for PBXNativeTarget "Unpaper" */;
+			buildConfigurationList = 3F2482C826A8872F00C26F47 /* Build configuration list for PBXNativeTarget "Splash" */;
 			buildPhases = (
 				3081F9620BE7390E13374772 /* [CP] Check Pods Manifest.lock */,
 				3F2482B026A8872D00C26F47 /* Sources */,
@@ -208,9 +208,9 @@
 			);
 			dependencies = (
 			);
-			name = Unpaper;
+			name = Splash;
 			productName = Splash;
-			productReference = 3F2482B426A8872D00C26F47 /* Unpaper.app */;
+			productReference = 3F2482B426A8872D00C26F47 /* Splash.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -227,7 +227,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 3F2482AF26A8872D00C26F47 /* Build configuration list for PBXProject "Unpaper" */;
+			buildConfigurationList = 3F2482AF26A8872D00C26F47 /* Build configuration list for PBXProject "Splash" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -240,7 +240,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				3F2482B326A8872D00C26F47 /* Unpaper */,
+				3F2482B326A8872D00C26F47 /* Splash */,
 			);
 		};
 /* End PBXProject section */
@@ -481,13 +481,13 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 689WQV49J8;
+				DEVELOPMENT_TEAM = 65CZ9U5U49;
 				INFOPLIST_FILE = Splash/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.tingyin.Unpaper;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tingyinnn.Unpaper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -503,13 +503,13 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 689WQV49J8;
+				DEVELOPMENT_TEAM = 65CZ9U5U49;
 				INFOPLIST_FILE = Splash/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.tingyin.Unpaper;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tingyinnn.Unpaper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -520,7 +520,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		3F2482AF26A8872D00C26F47 /* Build configuration list for PBXProject "Unpaper" */ = {
+		3F2482AF26A8872D00C26F47 /* Build configuration list for PBXProject "Splash" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3F2482C626A8872F00C26F47 /* Debug */,
@@ -529,7 +529,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3F2482C826A8872F00C26F47 /* Build configuration list for PBXNativeTarget "Unpaper" */ = {
+		3F2482C826A8872F00C26F47 /* Build configuration list for PBXNativeTarget "Splash" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3F2482C926A8872F00C26F47 /* Debug */,
